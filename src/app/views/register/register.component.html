@@ -5,36 +5,91 @@
         <div class="col-md-6 mx-auto">
           <div class="card mx-4">
             <div class="card-body p-4">
-              <form>
+              <form [formGroup]="addCompany">
                 <h1>Register</h1>
                 <p class="text-muted">Create your account</p>
+
+
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-user"></i></span>
                   </div>
-                  <input type="text" class="form-control" placeholder="Username" autocomplete="username" required>
+                  <input type="text" class="form-control" placeholder="Company Name" autocomplete="companyName"
+                    formControlName="companyName" id="companyName"
+                    [ngClass]="{'is-valid': submited && addCompany.controls.companyName.valid, 'is-invalid': submited && addCompany.controls.companyName.invalid}">
+                  <div *ngIf="addCompany.controls.companyName.errors" class="invalid-feedback d-block">
+                    <div *ngIf="addCompany.controls.companyName.errors.required && submited">
+                      Company Name is required ..
+                    </div>
+                  </div>
                 </div>
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-user"></i></span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Company Description"
+                    autocomplete="companyDescription" formControlName="companyDescription" id="companyDescription"
+                    [ngClass]="{'is-valid': submited && addCompany.controls.companyDescription.valid, 'is-invalid': submited && addCompany.controls.companyDescription.invalid}">
+                  <div *ngIf="addCompany.controls.companyDescription.errors" class="invalid-feedback d-block">
+                    <div *ngIf="addCompany.controls.companyDescription.errors.required && submited">
+                      Company Description is required ..
+                    </div>
+                  </div>
+                </div>
+
+
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text">@</span>
                   </div>
-                  <input type="text" class="form-control" placeholder="Email" autocomplete="email" required>
+                  <input type="text" class="form-control" placeholder="Email" autocomplete="companyEmail"
+                    formControlName="companyEmail" id="companyEmail"
+                    [ngClass]="{'is-valid': submited && addCompany.controls.companyEmail.valid, 'is-invalid': submited && addCompany.controls.companyEmail.invalid}">
+                  <div *ngIf="addCompany.controls.companyEmail.errors" class="invalid-feedback d-block">
+                    <div *ngIf="addCompany.controls.companyEmail.errors.required && submited">
+                      Company Email is required ..
+                    </div>
+                  </div>
                 </div>
+
+
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-lock"></i></span>
                   </div>
-                  <input type="password" class="form-control" placeholder="Password" autocomplete="new-password" required>
+                  <input type="password" class="form-control" placeholder="Password" autocomplete="password"
+                    formControlName="password" id="password"
+                    [ngClass]="{'is-valid': submited && addCompany.controls.password.valid, 'is-invalid': submited && addCompany.controls.password.invalid}">
+                  <div *ngIf="addCompany.controls.password.errors" class="invalid-feedback d-block">
+                    <div *ngIf="addCompany.controls.password.errors.required && submited">
+                      Password is required ..
+                    </div>
+                  </div>
                 </div>
+
+
                 <div class="input-group mb-4">
                   <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                    <span class="input-group-text"><i class="fad fa-arrow-alt-from-top"></i></span>
                   </div>
-                  <input type="password" class="form-control" placeholder="Repeat password" autocomplete="new-password" required>
+                  <input type="file" class="form-control" placeholder="Photo" autocomplete="Photo"
+                    formControlName="photo" id="photo"
+                    [ngClass]="{'is-valid': submited && addCompany.controls.photo.valid, 'is-invalid': submited && addCompany.controls.photo.invalid}">
+                  <div *ngIf="addCompany.controls.photo.errors" class="invalid-feedback d-block">
+                    <div *ngIf="addCompany.controls.photo.errors.required && submited">
+                      photo is required ..
+                    </div>
+                  </div>
                 </div>
-                <button type="button" class="btn btn-block btn-success">Create Account</button>
+
+
+                <button type="button" class="btn btn-block btn-success" (click)="validateCompany()">Create
+                  Account</button>
               </form>
             </div>
+
+
             <div class="card-footer p-4">
               <div class="row">
                 <div class="col-6">
