@@ -28,7 +28,8 @@ export class RegisterComponent {
       return;
     }
     else {    
-      this.companyService.addCompany(this.addCompany.value);    
+      this.companyService.addCompany(this.addCompany.value);
+          
     }
     
   }
