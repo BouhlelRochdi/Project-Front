@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyService {
 
-  constructor( private http : HttpClientModule) { }
+  constructor( private http : HttpClient) { }
 
-  addCompany(data){
-    // this.http.post(data);
-    console.log(data);
+  addCompany(data): Observable<any>{
+    return this.http.post('', data);
   }
 }
