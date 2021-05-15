@@ -11,6 +11,14 @@ export class CompanyService {
   constructor( private http : HttpClient) { }
 
   addCompany(data): Observable<any>{
-    return this.http.post('', data);
+    console.log('register executed');
+    
+    return this.http.post('http://localhost:27017/api/register', data);
+  }
+
+  login(data): Observable<any>{
+    
+    console.log('login executed');
+    return this.http.get('http://localhost:27017/api/login', data);
   }
 }
