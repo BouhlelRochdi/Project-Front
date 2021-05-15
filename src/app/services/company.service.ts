@@ -8,17 +8,13 @@ import { Observable } from 'rxjs';
 })
 export class CompanyService {
 
-  constructor( private http : HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  addCompany(data): Observable<any>{
-    console.log('register executed');
-    
+  addCompany(data): Observable<any> {
     return this.http.post('http://localhost:27017/api/register', data);
   }
 
-  login(data): Observable<any>{
-    
-    console.log('login executed');
+  login(data): Observable<any> {
     return this.http.get('http://localhost:27017/api/login', data);
   }
 }
