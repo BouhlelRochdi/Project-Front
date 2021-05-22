@@ -14,16 +14,12 @@ export class LoginComponent implements OnInit {
   submited = false;
 
   ngOnInit(): void {
-    this.showSuccess();
     this.loginForm = new FormGroup({
       email : new FormControl('', [Validators.required, Validators.email]),
       password : new FormControl('', Validators.required)
     })
   }
 
-  showSuccess() {
-    this.toasterService.pop('success', 'Success Toaster', 'This is toaster description');
-  }
 
   verif(){
     this.submited = true;
@@ -31,7 +27,11 @@ export class LoginComponent implements OnInit {
       return;
     }
     else{
-      this.companyService.login(this.loginForm.value);
+      this.companyService.login(this.loginForm.value).subscribe(res => {
+        this.toasterService.pop('success', 'Logged in successfuly');
+      }, err =>{
+        this.toasterService.pop('warning', 'Login Failed', err.error.message);
+      });
       
     }
   }
