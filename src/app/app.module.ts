@@ -31,6 +31,7 @@ import { ChartsModule } from 'ng2-charts';
 import { ToasterModule, ToasterService } from 'angular2-toaster';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CompanyService } from './services/company.service';
 
 @NgModule({
   imports: [
@@ -62,7 +63,8 @@ import { HttpClientModule } from '@angular/common/http';
     provide: LocationStrategy,
     useClass: HashLocationStrategy
   },
-  ToasterService
+  ToasterService,
+  CompanyService
 ],
   bootstrap: [ AppComponent ]
 })
