@@ -16,4 +16,7 @@ export class CompanyService {
   login(data: any): Observable<any> {
     return this.http.post('http://localhost:3000/api/login', data);
   }
+  forgotPassword(data: any):Observable<any> {
+    return this.http.post('http://localhost:3000/api/forgot-password', data);
+  }
 }
