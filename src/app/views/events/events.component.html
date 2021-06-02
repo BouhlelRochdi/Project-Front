@@ -1,0 +1,191 @@
+<div class="app-body">
+    <main class="main d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mx-auto">
+            <div class="card mx-4">
+              <div class="card-body p-4">
+                <form [formGroup]="eventsForm">
+                  <h1>Events Form</h1>
+                  <p class="text-muted">Creat Events</p>
+  
+  
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Events Name" autocomplete="name"
+                      formControlName="name" id="name"
+                      [ngClass]="{'is-valid': submited && eventsForm.controls.name.valid, 'is-invalid': submited && eventsForm.controls.name.invalid}">
+                    <div *ngIf="eventsForm.controls.name.errors" class="invalid-feedback d-block">
+                      <div *ngIf="eventsForm.controls.name.errors.required && submited">
+                        Events name is required ..
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Events Description"
+                      autocomplete="description" formControlName="description" id="description"
+                      [ngClass]="{'is-valid': submited && eventsForm.controls.description.valid, 'is-invalid': submited && eventsForm.controls.description.invalid}">
+                    <div *ngIf="eventsForm.controls.description.errors" class="invalid-feedback d-block">
+                      <div *ngIf="eventsForm.controls.description.errors.required && submited">
+                        Events Description is required ..
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-sm">Start Date</span>
+                    </div>
+                    <input type="date" class="form-control" placeholder="startDate" autocomplete="startDate"
+                      formControlName="startDate" id="startDate"
+                      [ngClass]="{'is-valid': submited && eventsForm.controls.startDate.valid, 'is-invalid': submited && eventsForm.controls.startDate.invalid}">
+                    <div *ngIf="eventsForm.controls.startDate.errors" class="invalid-feedback d-block">
+                      <div *ngIf="eventsForm.controls.startDate.errors.required && submited">
+                        Start Date is required ..
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"id="inputGroup-sizing-sm">Start Time</span>
+                    </div>
+                    <input type="date" class="form-control" placeholder="startTime" autocomplete="startTime"
+                      formControlName="startTime" id="startTime"
+                      [ngClass]="{'is-valid': submited && eventsForm.controls.startTime.valid, 'is-invalid': submited && eventsForm.controls.startTime.invalid}">
+                    <div *ngIf="eventsForm.controls.startTime.errors" class="invalid-feedback d-block">
+                      <div *ngIf="eventsForm.controls.startTime.errors.required && submited">
+                        Start Time is required ..
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"id="inputGroup-sizing-sm">End Date</span>
+                    </div>
+                    <input type="date" class="form-control" placeholder="endDate" autocomplete="endDate"
+                      formControlName="endDate" id="endDate"
+                      [ngClass]="{'is-valid': submited && eventsForm.controls.endDate.valid, 'is-invalid': submited && eventsForm.controls.endDate.invalid}">
+                    <div *ngIf="eventsForm.controls.endDate.errors" class="invalid-feedback d-block">
+                      <div *ngIf="eventsForm.controls.endDate.errors.required && submited">
+                        End Date is required ..
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"id="inputGroup-sizing-sm">End Time</span>
+                    </div>
+                    <input type="date" class="form-control" placeholder="endTime" autocomplete="endDate"
+                      formControlName="endTime" id="endTime"
+                      [ngClass]="{'is-valid': submited && eventsForm.controls.endTime.valid, 'is-invalid': submited && eventsForm.controls.endTime.invalid}">
+                    <div *ngIf="eventsForm.controls.endTime.errors" class="invalid-feedback d-block">
+                      <div *ngIf="eventsForm.controls.endTime.errors.required && submited">
+                        End Time is required ..
+                      </div>
+                    </div>
+                  </div>
+  
+  
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"id="inputGroup-sizing-sm">Photo</span>
+                    </div>
+                    <input type="file" class="form-control" placeholder="photo" autocomplete="photo"
+                      formControlName="photo" id="photo"
+                      [ngClass]="{'is-valid': submited && eventsForm.controls.photo.valid, 'is-invalid': submited && eventsForm.controls.photo.invalid}">
+                    <div *ngIf="eventsForm.controls.photo.errors" class="invalid-feedback d-block">
+                      <div *ngIf="eventsForm.controls.photo.errors.required && submited">
+                        Photo is required ..
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-price"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="price" autocomplete="price"
+                      formControlName="price" id="price"
+                      [ngClass]="{'is-valid': submited && eventsForm.controls.price.valid, 'is-invalid': submited && eventsForm.controls.price.invalid}">
+                    <div *ngIf="eventsForm.controls.price.errors" class="invalid-feedback d-block">
+                      <div *ngIf="eventsForm.controls.price.errors.required && submited">
+                        Price is required ..
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    </div>
+                    <input type="number" class="form-control" placeholder="availableTicketNumber" autocomplete="availableTicketNumber"
+                      formControlName="availableTicketNumber" id="availableTicketNumber"
+                      [ngClass]="{'is-valid': submited && eventsForm.controls.availableTicketNumber.valid, 'is-invalid': submited && eventsForm.controls.availableTicketNumber.invalid}">
+                    <div *ngIf="eventsForm.controls.availableTicketNumber.errors" class="invalid-feedback d-block">
+                      <div *ngIf="eventsForm.controls.availableTicketNumber.errors.required && submited">
+                        Available Ticket Number is required ..
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="eventType" autocomplete="eventType"
+                      formControlName="eventType" id="eventType"
+                      [ngClass]="{'is-valid': submited && eventsForm.controls.eventType.valid, 'is-invalid': submited && eventsForm.controls.eventType.invalid}">
+                    <div *ngIf="eventsForm.controls.eventType.errors" class="invalid-feedback d-block">
+                      <div *ngIf="eventsForm.controls.eventType.errors.required && submited">
+                        Events Type is required ..
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="location" autocomplete="location"
+                      formControlName="location" id="location"
+                      [ngClass]="{'is-valid': submited && eventsForm.controls.location.valid, 'is-invalid': submited && eventsForm.controls.location.invalid}">
+                    <div *ngIf="eventsForm.controls.location.errors" class="invalid-feedback d-block">
+                      <div *ngIf="eventsForm.controls.location.errors.required && submited">
+                        Location is required ..
+                      </div>
+                    </div>
+                  </div>
+
+  
+  
+                  
+                  <button type="button" class="btn btn-block btn-success" (click)="sendEvent()">Create
+                    An Events</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>

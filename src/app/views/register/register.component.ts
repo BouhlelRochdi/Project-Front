@@ -12,9 +12,9 @@ export class RegisterComponent {
   addCompany: FormGroup;
   submited = false;
 
-  constructor(private companyService : CompanyService, private router: Router, 
+  constructor(private companyService: CompanyService, private router: Router,
     private toasterService: ToasterService) { }
-  
+
   ngOnInit(): void {
     this.addCompany = new FormGroup({
       companyName: new FormControl('', Validators.required),
@@ -29,16 +29,16 @@ export class RegisterComponent {
     if (this.addCompany.invalid) {
       return;
     }
-    else {    
-      this.companyService.register(this.addCompany.value).subscribe(res =>{
+    else {
+      this.companyService.register(this.addCompany.value).subscribe(res => {
         this.toasterService.pop('success', 'Registred successfuly', 'you can loged in frome here');
         this.router.navigateByUrl('/login');
-      }, err =>{
+      }, err => {
         this.toasterService.pop('warning', 'Registred Failed', err.error.message);
       })
-          
+
     }
-    
+
   }
 
 }
