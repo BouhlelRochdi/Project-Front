@@ -30,8 +30,11 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { ToasterModule, ToasterService } from 'angular2-toaster';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CompanyService } from './services/company.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TokenInterceptorService } from './providers/token-interceptor.service';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   imports: [
@@ -49,7 +52,8 @@ import { CompanyService } from './services/company.service';
     ChartsModule,
     ToasterModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
   declarations: [
     AppComponent,
@@ -57,14 +61,21 @@ import { CompanyService } from './services/company.service';
     P404Component,
     P500Component,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ForgotPasswordComponent
   ],
-  providers: [{
+  providers: [
+  {
     provide: LocationStrategy,
     useClass: HashLocationStrategy
   },
   ToasterService,
-  CompanyService
+  CompanyService,
+  {
+    provide : HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi   : true,
+  }
 ],
   bootstrap: [ AppComponent ]
 })
