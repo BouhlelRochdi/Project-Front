@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Import Containers
 import { DefaultLayoutComponent } from './containers';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { AuthGuard } from './guards/auth.guard';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
@@ -46,6 +48,7 @@ export const routes: Routes = [
   {
     path: '',
     component: DefaultLayoutComponent,
+    canActivate: [AuthGuard],
     data: {
       title: 'Home'
     },
@@ -105,10 +108,16 @@ export const routes: Routes = [
       {
         path: 'widgets',
         loadChildren: () => import('./views/widgets/widgets.module').then(m => m.WidgetsModule)
-      }
+      },
+      { path: 'tags', loadChildren: () => import('./views/tags/tags.module').then(m => m.TagsModule) },
+      { path: 'events', loadChildren: () => import('./views/events/events.module').then(m => m.EventsModule) },
+      { path: 'companies', loadChildren: () => import('./views/companies/companies.module').then(m => m.CompaniesModule) }, 
+      { path: 'forgotPassword', component: ForgotPasswordComponent },
+      { path: 'login', loadChildren: () => import('./views/login/login.component').then(m => m.LoginComponent) },
+      { path: 'register', loadChildren: () => import('./views/register/register.component').then(m => m.RegisterComponent)}    
     ]
   },
-  { path: '**', component: P404Component }
+ { path: '**', component: P404Component }
 ];
 
 @NgModule({
