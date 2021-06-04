@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToasterService } from 'angular2-toaster';
 import { CompanyService } from '../services/company.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class ForgotPasswordComponent implements OnInit {
   forgotPassword : FormGroup;
   submited = false;
 
-  constructor(private companyService: CompanyService) { }
+  constructor(private companyService: CompanyService, private toasterService: ToasterService) { }
   ngOnInit(): void {
     this.forgotPassword = new FormGroup({
       email : new FormControl('', Validators.required)
@@ -26,7 +27,7 @@ export class ForgotPasswordComponent implements OnInit {
     {
       this.companyService.forgotPassword(this.forgotPassword.value).subscribe(res => {
         console.log(res);
-        
+        this.toasterService.pop('success', 'Already sent .. check your Email');
       }, err => {
         console.log(err.error.message);
       });;
