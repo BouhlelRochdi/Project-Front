@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DefaultLayoutComponent } from './containers';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
@@ -43,6 +44,20 @@ export const routes: Routes = [
     component: RegisterComponent,
     data: {
       title: 'Register Page'
+    }
+  },
+  {
+    path: 'forgotPassword',
+    component: ForgotPasswordComponent,
+    data: {
+      title: 'Forgot Password Page'
+    }
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
+    data: {
+      title: 'Reset Password Page'
     }
   },
   {
@@ -112,9 +127,9 @@ export const routes: Routes = [
       { path: 'tags', loadChildren: () => import('./views/tags/tags.module').then(m => m.TagsModule) },
       { path: 'events', loadChildren: () => import('./views/events/events.module').then(m => m.EventsModule) },
       { path: 'companies', loadChildren: () => import('./views/companies/companies.module').then(m => m.CompaniesModule) }, 
-      { path: 'forgotPassword', component: ForgotPasswordComponent },
-      { path: 'login', loadChildren: () => import('./views/login/login.component').then(m => m.LoginComponent) },
-      { path: 'register', loadChildren: () => import('./views/register/register.component').then(m => m.RegisterComponent)}    
+      // { path: 'forgotPassword', loadChildren: () => import('../app/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent) },
+      // { path: 'login', loadChildren: () => import('./views/login/login.component').then(m => m.LoginComponent) },
+      // { path: 'register', loadChildren: () => import('./views/register/register.component').then(m => m.RegisterComponent)}    
     ]
   },
  { path: '**', component: P404Component }
