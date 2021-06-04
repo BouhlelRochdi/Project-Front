@@ -35,6 +35,7 @@ import { CompanyService } from './services/company.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TokenInterceptorService } from './providers/token-interceptor.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   imports: [
@@ -62,7 +63,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     P500Component,
     LoginComponent,
     RegisterComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   providers: [
   {
