@@ -20,45 +20,27 @@ export const routes: Routes = [
   },
   {
     path: '404',
-    component: P404Component,
-    data: {
-      title: 'Page 404'
-    }
+    component: P404Component
   },
   {
     path: '500',
-    component: P500Component,
-    data: {
-      title: 'Page 500'
-    }
+    component: P500Component
   },
   {
     path: 'login',
-    component: LoginComponent,
-    data: {
-      title: 'Login Page'
-    }
+    component: LoginComponent
   },
   {
     path: 'register',
-    component: RegisterComponent,
-    data: {
-      title: 'Register Page'
-    }
+    component: RegisterComponent
   },
   {
     path: 'forgotPassword',
-    component: ForgotPasswordComponent,
-    data: {
-      title: 'Forgot Password Page'
-    }
+    component: ForgotPasswordComponent
   },
   {
-    path: 'reset-password',
-    component: ResetPasswordComponent,
-    data: {
-      title: 'Reset Password Page'
-    }
+    path: 'reset-password/:token',
+    component: ResetPasswordComponent
   },
   {
     path: '',
@@ -127,10 +109,7 @@ export const routes: Routes = [
       { path: 'tags', loadChildren: () => import('./views/tags/tags.module').then(m => m.TagsModule) },
       { path: 'events', loadChildren: () => import('./views/events/events.module').then(m => m.EventsModule) },
       { path: 'companies', loadChildren: () => import('./views/companies/companies.module').then(m => m.CompaniesModule) }, 
-      // { path: 'forgotPassword', loadChildren: () => import('../app/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent) },
-      // { path: 'login', loadChildren: () => import('./views/login/login.component').then(m => m.LoginComponent) },
-      // { path: 'register', loadChildren: () => import('./views/register/register.component').then(m => m.RegisterComponent)}    
-    ]
+      ]
   },
  { path: '**', component: P404Component }
 ];
