@@ -31,8 +31,6 @@ export class LoginComponent implements OnInit {
     else {
       this.companyService.login(this.loginForm.value).subscribe(res => {
         this.toasterService.pop('success', 'Logged in successfuly');
-        console.log(res.token.id);
-        
         localStorage.setItem('token', res.token);
         this.router.navigateByUrl('/dashboard');
       }, err => {
