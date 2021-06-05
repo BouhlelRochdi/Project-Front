@@ -19,26 +19,17 @@ export class AuthGuard implements CanActivate {
     } else {
       const token = localStorage.getItem('token');
       const decoded: any = jwt_decode(token);
-      const currentDate = new Date().getTime();
-      const tokenDate = decoded.exp;
-      // tokenDate.setUTCDate(decoded.exp);
-      console.log('currentDate ==> ', currentDate);
-      console.log('tokenDate ==> ', tokenDate);
-      if (tokenDate < currentDate) {
-      //   const notSame = currentDate.getTime() !== tokenDate.getTime();
-        console.log('token date is newer than currentDate');
-        return false;
-      }
-      else 
-      if( tokenDate > currentDate){
-        console.log('tokendate is bigger than currentDate');
+      const isExpiredToken = (Math.floor((new Date).getTime() / 1000)) >= decoded.exp;
+      console.log(isExpiredToken);
+      if (isExpiredToken) {
+        localStorage.removeItem('token');
+        this.router.navigateByUrl('/login');
         return false;
       }
       else {
-        console.log('they are equale');
-        return true;
-        
-      }
+          return true;
+        }
+       
     }
   }
 
