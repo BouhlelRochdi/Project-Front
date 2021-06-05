@@ -29,6 +29,13 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { ToasterModule, ToasterService } from 'angular2-toaster';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CompanyService } from './services/company.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TokenInterceptorService } from './providers/token-interceptor.service';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   imports: [
@@ -44,7 +51,10 @@ import { ToasterModule, ToasterService } from 'angular2-toaster';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
-    ToasterModule
+    ToasterModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FontAwesomeModule
   ],
   declarations: [
     AppComponent,
@@ -52,13 +62,22 @@ import { ToasterModule, ToasterService } from 'angular2-toaster';
     P404Component,
     P500Component,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
-  providers: [{
+  providers: [
+  {
     provide: LocationStrategy,
     useClass: HashLocationStrategy
   },
-  ToasterService
+  ToasterService,
+  CompanyService,
+  {
+    provide : HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi   : true,
+  }
 ],
   bootstrap: [ AppComponent ]
 })

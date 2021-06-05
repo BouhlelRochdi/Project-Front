@@ -3,6 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Import Containers
 import { DefaultLayoutComponent } from './containers';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { AuthGuard } from './guards/auth.guard';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
@@ -17,35 +20,32 @@ export const routes: Routes = [
   },
   {
     path: '404',
-    component: P404Component,
-    data: {
-      title: 'Page 404'
-    }
+    component: P404Component
   },
   {
     path: '500',
-    component: P500Component,
-    data: {
-      title: 'Page 500'
-    }
+    component: P500Component
   },
   {
     path: 'login',
-    component: LoginComponent,
-    data: {
-      title: 'Login Page'
-    }
+    component: LoginComponent
   },
   {
     path: 'register',
-    component: RegisterComponent,
-    data: {
-      title: 'Register Page'
-    }
+    component: RegisterComponent
+  },
+  {
+    path: 'forgotPassword',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: 'reset-password/:token',
+    component: ResetPasswordComponent
   },
   {
     path: '',
     component: DefaultLayoutComponent,
+    canActivate: [AuthGuard],
     data: {
       title: 'Home'
     },
@@ -105,10 +105,13 @@ export const routes: Routes = [
       {
         path: 'widgets',
         loadChildren: () => import('./views/widgets/widgets.module').then(m => m.WidgetsModule)
-      }
-    ]
+      },
+      { path: 'tags', loadChildren: () => import('./views/tags/tags.module').then(m => m.TagsModule) },
+      { path: 'events', loadChildren: () => import('./views/events/events.module').then(m => m.EventsModule) },
+      { path: 'companies', loadChildren: () => import('./views/companies/companies.module').then(m => m.CompaniesModule) }, 
+      ]
   },
-  { path: '**', component: P404Component }
+ { path: '**', component: P404Component }
 ];
 
 @NgModule({
