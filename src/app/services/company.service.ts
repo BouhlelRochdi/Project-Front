@@ -19,4 +19,8 @@ export class CompanyService {
   forgotPassword(data: any):Observable<any> {
     return this.http.post('http://localhost:3000/api/forgot-password', data);
   }
+
+  updatePassword(data: any, token: any):Observable<any>{
+    return this.http.post(`http://localhost:3000/api/company/${token}`, data);
+  }
 }
