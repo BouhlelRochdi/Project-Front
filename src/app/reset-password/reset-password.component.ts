@@ -13,19 +13,18 @@ import { CompanyService } from '../services/company.service';
 export class ResetPasswordComponent implements OnInit {
   resetPassword : FormGroup;
   submited = false;
-  token;
 
   constructor(private companyservices : CompanyService, private router: Router,
     private toasterService: ToasterService, private activedRouter:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.resetPassword = new FormGroup({
+      token: new FormControl(this.activedRouter.snapshot.params.token),
       password: new FormControl('', Validators.required),
       passwordMatch : new FormControl('', Validators.required)
     },
     {validators: passwordMatch}
     );
-    this.token = this.activedRouter.snapshot.params.token;
   }
 
   updatePassword(){
@@ -34,10 +33,11 @@ export class ResetPasswordComponent implements OnInit {
       return;
     }
     else {
-      this.companyservices.updatePassword(this.resetPassword.get(this.resetPassword.value), this.token).subscribe(res => {
-        this.toasterService.pop('success', 'Registred successfuly', 'you can loged in frome here');
+      this.companyservices.updatePassword(this.resetPassword.value).subscribe(res => {
+        this.toasterService.pop('success', 'updated successfuly', 'you can loged in frome here');
+        this.router.navigateByUrl('/login');
       }, err => {
-        this.toasterService.pop('warning', 'Registred Failed', err.error.message);
+        this.toasterService.pop('warning', 'updated Failed', err.error.message);
       })      
       }
   }
