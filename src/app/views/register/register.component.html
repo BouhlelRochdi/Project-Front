@@ -14,11 +14,11 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-user"></i></span>
                   </div>
-                  <input type="text" class="form-control" placeholder="Company Name" autocomplete="companyName"
-                    formControlName="companyName" id="companyName"
-                    [ngClass]="{'is-valid': submited && addCompany.controls.companyName.valid, 'is-invalid': submited && addCompany.controls.companyName.invalid}">
-                  <div *ngIf="addCompany.controls.companyName.errors" class="invalid-feedback d-block">
-                    <div *ngIf="addCompany.controls.companyName.errors.required && submited">
+                  <input type="text" class="form-control" placeholder="Company Name" autocomplete="name"
+                    formControlName="name" id="name"
+                    [ngClass]="{'is-valid': submited && addCompany.controls.name.valid, 'is-invalid': submited && addCompany.controls.name.invalid}">
+                  <div *ngIf="addCompany.controls.name.errors" class="invalid-feedback d-block">
+                    <div *ngIf="addCompany.controls.name.errors.required && submited">
                       Company Name is required ..
                     </div>
                   </div>
@@ -29,10 +29,10 @@
                     <span class="input-group-text"><i class="icon-user"></i></span>
                   </div>
                   <input type="text" class="form-control" placeholder="Company Description"
-                    autocomplete="companyDescription" formControlName="companyDescription" id="companyDescription"
-                    [ngClass]="{'is-valid': submited && addCompany.controls.companyDescription.valid, 'is-invalid': submited && addCompany.controls.companyDescription.invalid}">
-                  <div *ngIf="addCompany.controls.companyDescription.errors" class="invalid-feedback d-block">
-                    <div *ngIf="addCompany.controls.companyDescription.errors.required && submited">
+                    autocomplete="description" formControlName="description" id="description"
+                    [ngClass]="{'is-valid': submited && addCompany.controls.description.valid, 'is-invalid': submited && addCompany.controls.description.invalid}">
+                  <div *ngIf="addCompany.controls.description.errors" class="invalid-feedback d-block">
+                    <div *ngIf="addCompany.controls.description.errors.required && submited">
                       Company Description is required ..
                     </div>
                   </div>

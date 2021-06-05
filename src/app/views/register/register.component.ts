@@ -17,8 +17,8 @@ export class RegisterComponent {
 
   ngOnInit(): void {
     this.addCompany = new FormGroup({
-      companyName: new FormControl('', Validators.required),
-      companyDescription: new FormControl('', Validators.required),
+      name: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required)
     })
