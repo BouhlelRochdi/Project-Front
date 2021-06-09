@@ -41,7 +41,22 @@ export const navItems: NavData[] = [
   },
   {
     title: true,
-    name: 'Theme'
+    name: 'Menu'
+  },
+  {
+    name: 'companies',
+    url: '/companies',
+    icon: 'icon-user'
+  },
+  {
+    name: 'Events',
+    url: '/events',
+    icon: 'icon-list'
+  },
+  {
+    name: 'Tags',
+    url: '/tags',
+    icon: 'icon-tag'
   },
   {
     name: 'Colors',
@@ -352,19 +367,9 @@ export const navItems: NavData[] = [
     icon: 'icon-star',
     children: [
       {
-        name: 'Login',
-        url: '/login',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Register',
-        url: '/register',
-        icon: 'icon-star'
-      },
-      {
         name: 'Error 404',
         url: '/404',
-        icon: 'icon-star'
+        icon: 'icon-cursor'
       },
       {
         name: 'Error 500',
