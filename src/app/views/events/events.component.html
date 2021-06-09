@@ -225,8 +225,11 @@
                       </div>
                     </div>
 
+                    <!-- Test DatePicker -->
 
-
+                    
+                    
+                    <!-- End of test DatePicker -->
 
                     <button type="button" class="btn btn-block btn-success" (click)="AddEvent()">Create
                       An Events</button>
@@ -287,13 +290,13 @@
         <tr *ngFor="let event of events">
           <td>{{ event.name }}</td>
           <td>{{ event.description }}</td>
-          <td>{{ event.startDate }}</td>
-          <td>{{ event.startTime }}</td>
-          <td>{{ event.endDate }}</td>
-          <td>{{ event.endTime }}</td>
+          <td>{{ event.startDate | date:'short' }}</td>
+          <td>{{ event.startTime | date:'short' }}</td>
+          <td>{{ event.endDate | date:'short' }}</td>
+          <td>{{ event.endTime | date:'short' }}</td>
           <td>{{ event.photo }}</td>
           <td>{{ event.price }}</td>
-          <td>{{ event.availableTicketNumber }}</td>
+          <td class="text-center">{{ event.availableTicketNumber }}</td>
           <td>{{ event.eventType }}</td>
           <td>{{ event.location }}</td>
         </tr>
@@ -303,3 +306,6 @@
 </div>
 <!-- Start display Events in array -->
 <button class="btn btn-outline-primary mb-2 mr-2" (click)="openLg(content)">Add Event</button>
+
+
+
