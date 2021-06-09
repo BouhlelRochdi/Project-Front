@@ -21,7 +21,13 @@ export class TagsComponent implements OnInit {
   }
 
   saveTag(){
-    console.log('tags Work');
+    this.submited= true;
+    if(this.tagsForm.invalid){
+      return;
+    }
+    else{
+      console.log(this.tagsForm.value);
+    }
     
   }
 

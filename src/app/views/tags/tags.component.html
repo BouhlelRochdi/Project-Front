@@ -1,51 +1,85 @@
-<div class="app-body">
-    <main class="main d-flex align-items-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 mx-auto">
-            <div class="card-group">
-              <div class="card p-4">
-                <div class="card-body">
-                  <form [formGroup]="tagsForm">
-                    <h1 class>Tag</h1>
-                    <p class="text-muted">Create Tag</p>
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="icon-user"></i></span>
-                      </div>
-                      <input type="text" class="form-control" placeholder="name" autocomplete="Name" formControlName="name" id="name" [ngClass]="{'is-valid': submited && tagsForm.controls.name.valid, 'is-invalid': submited && tagsForm.controls.name.invalid}">
+<!-- <div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-body">
+                <form [formGroup]="tagsForm">
+                  <h2 class><p class="text-muted">Create Tag</p>
+                  </h2>
+
+                  <div class="mb-3">
+                    <label for="name">
+                      Name
+                    </label>
+                    <div for="name">
+                      <input type="text" class="form-control" placeholder="Name" autocomplete="Name"
+                        formControlName="name" id="name"
+                        [ngClass]="{'is-valid': submited && tagsForm.controls.name.valid, 'is-invalid': submited && tagsForm.controls.name.invalid}">
                       <div *ngIf="tagsForm.controls.name.errors" class="invalid-feedback d-block">
                         <div *ngIf="tagsForm.controls.name.errors.required && submited">
-                          name is required ..
+                          Name is required ..
                         </div>
                         <div *ngIf="tagsForm.controls.name.errors.name && submited">
-                          name Format is required ..
+                          Name Format is required ..
                         </div>
                       </div>
                     </div>
-                    <div class="input-group mb-4">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="icon-lock"></i></span>
-                      </div>
-                      <input type="text" class="form-control" placeholder="description" autocomplete="current-description" formControlName="description" id="description" [ngClass]="{'is-valid': submited && tagsForm.controls.description.valid, 'is-invalid': submited && tagsForm.controls.description.invalid}">
-                      <div *ngIf="tagsForm.controls.description.errors" class="invalid-feedback d-block">
-                        <div *ngIf="tagsForm.controls.description.errors.required && submited">
-                          description is required ..
-                        </div>
-                      </div>
+                  </div>
+
+
+
+                  <div class="mb-3">
+                    <label for="description">
+                      Description
+                    </label>
+                    <div for="description">
+                      <textarea name="description" id="description" cols="mx-auto" rows="10"
+                        class="form-control" placeholder="description"
+                        autocomplete="current-description" formControlName="description" id="description">
+                      </textarea>
                     </div>
-                    <div class="row">
-                      <div class="col-6">
-                        <button type="button" class="btn btn-primary px-4" (click)="saveTag()">Save Tag</button>
-                      </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-6">
+                      <button type="button" class="btn btn-primary btn-block" (click)="saveTag()">Save Tag</button>
                     </div>
-                  </form>
-                </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </main>
+    </div>
+  </main>
+</div> -->
+
+
+
+<div class="card-body">
+  <div class="btn btn-secondary mr-1" data-toggle="modal" (click)="myModal.show()">
   </div>
-  
+</div>
+<div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Modal title</h4>
+        <button type="button" class="close" (click)="myModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="myModal.hide()">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
