@@ -36,6 +36,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TokenInterceptorService } from './providers/token-interceptor.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DataTableModule } from 'angular2-datatable';
 
 @NgModule({
   imports: [
@@ -54,7 +56,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ToasterModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgbModule,
+    DataTableModule
   ],
   declarations: [
     AppComponent,
