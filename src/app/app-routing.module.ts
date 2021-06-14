@@ -108,10 +108,10 @@ export const routes: Routes = [
       },
       { path: 'tags', loadChildren: () => import('./views/tags/tags.module').then(m => m.TagsModule) },
       { path: 'events', loadChildren: () => import('./views/events/events.module').then(m => m.EventsModule) },
-      { path: 'companies', loadChildren: () => import('./views/companies/companies.module').then(m => m.CompaniesModule) }, 
-      ]
+      { path: 'companies', loadChildren: () => import('./views/companies/companies.module').then(m => m.CompaniesModule) }   
+    ]
   },
- { path: '**', component: P404Component }
+  { path: '**', component: P404Component }
 ];
 
 @NgModule({
