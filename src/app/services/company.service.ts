@@ -29,7 +29,7 @@ export class CompanyService {
   }
 
   addCompany(data: any): Observable <any>{
-    return this.http.post('http://localhost:3000/api/company', data);
+    return this.http.post('http://localhost:3000/api/createCompany', data);
   }
 
   updateCompany(id, data): Observable <any>{

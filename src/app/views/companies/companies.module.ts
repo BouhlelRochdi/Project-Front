@@ -6,6 +6,8 @@ import { CompaniesComponent } from './companies.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UpdateCompanyComponent } from './update-company/update-company.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { SelectModule } from 'ng-select';
+import { DataTableModule } from 'angular2-datatable';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     CommonModule,
     CompaniesRoutingModule,
     ReactiveFormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    SelectModule,
+    DataTableModule
   ]
 })
 export class CompaniesModule { }

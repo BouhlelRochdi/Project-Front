@@ -5,6 +5,7 @@ import { ToasterService } from 'angular2-toaster';
 import { routes } from '../../../app-routing.module';
 import { CompanyService } from '../../../services/company.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { IOption } from 'ng-select';
 
 @Component({
   selector: 'app-update-company',
@@ -15,6 +16,10 @@ export class UpdateCompanyComponent implements OnInit {
   updateCompany : FormGroup;
   id;
   company: [];
+  public roleCompany: Array<IOption> = [
+    {label: 'Super Admin', value: 'superAdmin'},
+    {label: 'Admin', value: 'admin'}
+  ];
 
   constructor(private companyService : CompanyService,
     private toasterService : ToasterService,
@@ -28,7 +33,7 @@ export class UpdateCompanyComponent implements OnInit {
       email: new FormControl('', [Validators.required]),
       password: new FormControl('', Validators.required),
       photo: new FormControl('', Validators.required),
-      role: new FormControl('', Validators.required)
+      role: new FormControl('admin', Validators.required)
     });
     this.id = this.activedRouter.snapshot.params.id;
     const resultat = this.getCurrentCompany(this.id);

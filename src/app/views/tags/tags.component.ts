@@ -56,9 +56,10 @@ deleteTag(id){
     title: 'Are you sure want to remove it?',
     text: 'You will not be able to rstore this field!',
     icon: 'warning',
-    showCancelButton: true,
     confirmButtonText: 'Do it!',
-    cancelButtonText: 'No, keep it'
+    cancelButtonText: 'No, keep it',
+    timer: 3000,
+    timerProgressBar: true
   }).then((res)=>{
     if(res.isConfirmed){
       this.tagsService.deleteOne(id).subscribe(res => {

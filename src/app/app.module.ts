@@ -29,7 +29,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { ToasterModule, ToasterService } from 'angular2-toaster';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CompanyService } from './services/company.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -58,7 +58,8 @@ import { DataTableModule } from 'angular2-datatable';
     HttpClientModule,
     FontAwesomeModule,
     NgbModule,
-    DataTableModule
+    DataTableModule,
+    FormsModule
   ],
   declarations: [
     AppComponent,
