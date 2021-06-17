@@ -1,0 +1,241 @@
+<div class="app-body mt-5">
+    <main class="main d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mx-auto">
+                    <div class="card mx-4">
+                        <div class="card-body p-4">
+                            <form [formGroup]="updateEvent">
+                                <h1>Events Form</h1>
+                                <p class="text-muted">Creat Events</p>
+
+
+                                <div class="mb-3">
+                                    <label for="name">
+                                        Description
+                                    </label>
+                                    <div for="name">
+                                        <input type="text" class="form-control" placeholder="Events Name"
+                                            autocomplete="name" formControlName="name" id="name"
+                                            [ngClass]="{'is-valid': submited && updateEvent.controls.name.valid, 'is-invalid': submited && updateEvent.controls.name.invalid}">
+                                        <div *ngIf="updateEvent.controls.name.errors" class="invalid-feedback d-block">
+                                            <div *ngIf="updateEvent.controls.name.errors.required && submited">
+                                                Events name is required ..
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="mb-3">
+                                    <label for="description">
+                                        Description
+                                    </label>
+                                    <div for="description">
+                                        <textarea name="description" id="description" cols="mx-auto" rows="10"
+                                            class="form-control" placeholder="description" formControlName="description"
+                                            id="description"
+                                            [ngClass]="{'is-valid': submited && updateEvent.controls.description.valid, 'is-invalid': submited && updateEvent.controls.description.invalid}">
+                  <div *ngIf="updateEvent.controls.description.errors" class="invalid-feedback d-block">
+                    <div *ngIf="updateEvent.controls.description.errors.required && submited">
+                      description is required ..
+                    </div>
+                  </div>
+                  </textarea>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="mb-3">
+                                    <label for="startDate">
+                                        Start Date
+                                    </label>
+                                    <div for="startDate">
+                                        <input type="datetime-local" class="form-control" placeholder="startDate"
+                                            autocomplete="startDate" formControlName="startDate" id="startDate"
+                                            [ngClass]="{'is-valid': submited && updateEvent.controls.startDate.valid, 'is-invalid': submited && updateEvent.controls.startDate.invalid}">
+                                        <div *ngIf="updateEvent.controls.startDate.errors"
+                                            class="invalid-feedback d-block">
+                                            <div *ngIf="updateEvent.controls.startDate.errors.required && submited">
+                                                Start Date is required ..
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="mb-3">
+                                    <label for="startTime">
+                                        Start Time
+                                    </label>
+                                    <div for="startTime">
+
+                                        <!-- <ngb-timepicker formControlName="startTime"
+                        id="startTime"
+                        [ngClass]="{'is-valid': submited && updateEvent.controls.startTime.valid, 'is-invalid': submited && updateEvent.controls.startTime.invalid}">
+                      </ngb-timepicker> -->
+
+                                        <input type="time" formControlName="startTime" id="startTime"
+                                            [ngClass]="{'is-valid': submited && updateEvent.controls.startTime.valid, 'is-invalid': submited && updateEvent.controls.startTime.invalid}">
+                                        <div *ngIf="updateEvent.controls.startTime.errors"
+                                            class="invalid-feedback d-block">
+                                            <div *ngIf="updateEvent.controls.startTime.errors.required && submited">
+                                                Start Time is required ..
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="mb-3">
+                                    <label for="endDate">
+                                        End Date
+                                    </label>
+                                    <div for="endDate">
+                                        <input type="datetime-local" class="form-control" placeholder="endDate"
+                                            autocomplete="endDate" formControlName="endDate" id="endDate"
+                                            [ngClass]="{'is-valid': submited && updateEvent.controls.endDate.valid, 'is-invalid': submited && updateEvent.controls.endDate.invalid}">
+                                        <div *ngIf="updateEvent.controls.endDate.errors"
+                                            class="invalid-feedback d-block">
+                                            <div *ngIf="updateEvent.controls.endDate.errors.required && submited">
+                                                End Date is required ..
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="mb-3">
+                                    <label for="endTime">
+                                        End Time
+                                    </label>
+                                    <div for="endTime">
+                                        <!-- <ngb-timepicker formControlName="endTime"
+                        id="endTime"
+                        [ngClass]="{'is-valid': submited && updateEvent.controls.endTime.valid, 'is-invalid': submited && updateEvent.controls.endTime.invalid}">
+                      </ngb-timepicker> -->
+                                        <input type="time" formControlName="endTime" id="endTime"
+                                            [ngClass]="{'is-valid': submited && updateEvent.controls.endTime.valid, 'is-invalid': submited && updateEvent.controls.endTime.invalid}">
+
+                                        <div *ngIf="updateEvent.controls.endTime.errors"
+                                            class="invalid-feedback d-block">
+                                            <div *ngIf="updateEvent.controls.endTime.errors.required && submited">
+                                                End Time is required ..
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="mb-3">
+                                    <label for="photo">
+                                        Photo
+                                    </label>
+                                    <div for="photo">
+                                        <input type="file" class="form-control" placeholder="photo" autocomplete="photo"
+                                            formControlName="photo" (change)="onFileSelect($event)" id="photo">
+                                            <!-- [ngClass]="{'is-valid': submited && updateEvent.controls.photo.valid, 'is-invalid': submited && updateEvent.controls.photo.invalid}"> -->
+                                        <!-- <div *ngIf="updateEvent.controls.photo.errors" class="invalid-feedback d-block">
+                                            <div *ngIf="updateEvent.controls.photo.errors.required && submited">
+                                                Photo is required ..
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+
+
+                                <div class="mb-3">
+                                    <label for="price">
+                                        Price
+                                    </label>
+                                    <div for="price">
+                                        <input type="text" class="form-control" placeholder="price" autocomplete="price"
+                                            formControlName="price" id="price"
+                                            [ngClass]="{'is-valid': submited && updateEvent.controls.price.valid, 'is-invalid': submited && updateEvent.controls.price.invalid}">
+                                        <div *ngIf="updateEvent.controls.price.errors" class="invalid-feedback d-block">
+                                            <div *ngIf="updateEvent.controls.price.errors.required && submited">
+                                                Price is required ..
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="mb-3">
+                                    <label for="availableTicketNumber">
+                                        Available Ticket Number
+                                    </label>
+                                    <div for="availableTicketNumber">
+                                        <input type="number" class="form-control" placeholder="availableTicketNumber"
+                                            autocomplete="availableTicketNumber" formControlName="availableTicketNumber"
+                                            id="availableTicketNumber"
+                                            [ngClass]="{'is-valid': submited && updateEvent.controls.availableTicketNumber.valid, 'is-invalid': submited && updateEvent.controls.availableTicketNumber.invalid}">
+                                        <div *ngIf="updateEvent.controls.availableTicketNumber.errors"
+                                            class="invalid-feedback d-block">
+                                            <div
+                                                *ngIf="updateEvent.controls.availableTicketNumber.errors.required && submited">
+                                                Available Ticket Number is required ..
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="mb-3">
+                                    <label for="eventType">
+                                        Event Type
+                                    </label>
+                                    <div for="eventType">
+                                        <fieldset class="form-group">
+                                            <ng-select formControlName="eventType" class="bootstrap"
+                                                placeholder="Choose the Type" [options]="type" [allowClear]="true"
+                                                id="eventType"
+                                                [ngClass]="{'is-valid': submited && updateEvent.controls.eventType.valid, 'is-invalid': submited && updateEvent.controls.eventType.invalid}">
+                                                <div *ngIf="updateEvent.controls.eventType.errors"
+                                                    class="invalid-feedback d-block">
+                                                    <div
+                                                        *ngIf="updateEvent.controls.eventType.errors.required && submited">
+                                                        Events Type is required ..
+                                                    </div>
+                                                </div>
+                                            </ng-select>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="mb-3">
+                                    <label for="location">
+                                        Location
+                                    </label>
+                                    <div for="location">
+                                        <input type="text" class="form-control" placeholder="location"
+                                            autocomplete="location" formControlName="location" id="location"
+                                            [ngClass]="{'is-valid': submited && updateEvent.controls.location.valid, 'is-invalid': submited && updateEvent.controls.location.invalid}">
+                                        <div *ngIf="updateEvent.controls.location.errors"
+                                            class="invalid-feedback d-block">
+                                            <div *ngIf="updateEvent.controls.location.errors.required && submited">
+                                                Location is required ..
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <button type="button" class="btn btn-block btn-success" (click)="update()">Update this
+                                    Event</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
