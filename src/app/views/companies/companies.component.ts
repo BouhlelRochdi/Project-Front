@@ -23,6 +23,7 @@ export class CompaniesComponent implements OnInit {
   token = localStorage.getItem('token');
   currentId: any;
   @ViewChild('companyModal') companyModal: ModalDirective;
+  filterQuery: string = null;
   public roleCompany: Array<IOption> = [
     { label: 'Super Admin', value: 'superAdmin' },
     { label: 'Admin', value: 'admin' }
@@ -31,8 +32,6 @@ export class CompaniesComponent implements OnInit {
   constructor(private toaster: ToasterService,
     private companyService: CompanyService,
     private sweetAlertService: SweetAlertService) { }
-
-
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
@@ -44,15 +43,6 @@ export class CompaniesComponent implements OnInit {
       password: new FormControl('', Validators.required),
       role: new FormControl('admin', Validators.required)
     });
-    
-    //data Table zone
-    // this.dtOptions = {
-    //   pagingType: 'full_numbers',
-    //   pageLength: 5,
-    //   lengthMenu: [5, 10, 25],
-    //   processing: true
-    // };
-    // End data Table zone
     this.getAllCompanys();
   }
 
