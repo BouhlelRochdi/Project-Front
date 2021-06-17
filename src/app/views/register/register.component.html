@@ -68,6 +68,15 @@
                   </div>
                 </div>
 
+
+                <div class="input-group mb-3">
+                  <fieldset class="form-group">
+                    <ng-select formControlName="role" class="bootstrap" [options]="roleCompany"
+                     id="role">
+                    </ng-select>
+                </fieldset>
+                </div>
+
                 
                 <button type="button" class="btn btn-block btn-success" (click)="validateCompany()">Create
                   A Company</button>

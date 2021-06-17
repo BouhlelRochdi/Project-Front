@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
+import { IOption } from 'ng-select';
 import { CompanyService } from '../../services/company.service';
 
 @Component({
@@ -11,6 +12,10 @@ import { CompanyService } from '../../services/company.service';
 export class RegisterComponent {
   addCompany: FormGroup;
   submited = false;
+  public roleCompany: Array<IOption> = [
+    {label: 'Super Admin', value: 'superAdmin'},
+    {label: 'Admin', value: 'admin'}
+  ];
 
   constructor(private companyService: CompanyService, private router: Router,
     private toasterService: ToasterService) { }
@@ -20,7 +25,8 @@ export class RegisterComponent {
       name: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.required)
+      password: new FormControl('', Validators.required),
+      role: new FormControl('admin', Validators.required)
     })
   }
 
