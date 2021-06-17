@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToasterService } from 'angular2-toaster';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { CompanyService } from '../../services/company.service';
-import Swal from 'sweetalert2';
 import { IOption } from 'ng-select';
+import { SweetAlertService } from '../../services/sweet-alert.service';
 
 
 @Component({
@@ -14,19 +13,21 @@ import { IOption } from 'ng-select';
   styleUrls: ['./companies.component.css']
 })
 export class CompaniesComponent implements OnInit {
+  dtOptions: any = {};
   addCompany: FormGroup;
   submited = false;
   companys: [];
   photoUploaded: File = null;
-  photoUrl : any;
+  photoUrl: any;
   @ViewChild('companyModal') companyModal: ModalDirective;
   public roleCompany: Array<IOption> = [
-    {label: 'Super Admin', value: 'superAdmin'},
-    {label: 'Admin', value: 'admin'}
+    { label: 'Super Admin', value: 'superAdmin' },
+    { label: 'Admin', value: 'admin' }
   ];
 
   constructor(private toaster: ToasterService,
-    private companyService: CompanyService) { }
+    private companyService: CompanyService,
+    private sweetAlertService: SweetAlertService) { }
 
 
 
@@ -38,31 +39,40 @@ export class CompaniesComponent implements OnInit {
       password: new FormControl('', Validators.required),
       role: new FormControl('admin', Validators.required)
     });
+    
+    //data Table zone
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      lengthMenu: [5, 10, 25],
+      processing: true
+    };
+    // End data Table zone
+    
     this.getAllCompanys();
   }
 
 
   onFileSelect(event) {
     if (event.target.files.length == 0) {
-      this.toaster.pop('error', 'Photo Errors', 'Please select an image file' )
+      this.toaster.pop('error', 'Photo Errors', 'Please select an image file')
       return;
     }
-    else
-      {
-        this.photoUploaded = (event.target as HTMLInputElement).files[0];
-        const allowedExtensionFile = ['image/jpg', 'image/jpeg', 'image/png'];
-        if (!allowedExtensionFile.includes(this.photoUploaded.type)) {
-          this.toaster.pop('error', 'Photo Errors', 'Only those extension are acceptable! [jpg, jpeg, png]')
-          return;
-        }
-        else {
-          const readFile = new FileReader();
-          readFile.readAsDataURL(this.photoUploaded);
-          readFile.onload = (event) => {
-            this.photoUrl = readFile.result;
-          }
+    else {
+      this.photoUploaded = (event.target as HTMLInputElement).files[0];
+      const allowedExtensionFile = ['image/jpg', 'image/jpeg', 'image/png'];
+      if (!allowedExtensionFile.includes(this.photoUploaded.type)) {
+        this.toaster.pop('error', 'Photo Errors', 'Only those extension are acceptable! [jpg, jpeg, png]')
+        return;
+      }
+      else {
+        const readFile = new FileReader();
+        readFile.readAsDataURL(this.photoUploaded);
+        readFile.onload = (event) => {
+          this.photoUrl = readFile.result;
         }
       }
+    }
   }
 
   sendCompany() {
@@ -70,15 +80,14 @@ export class CompaniesComponent implements OnInit {
     if (this.addCompany.invalid || this.photoUploaded == null) {
       this.toaster.pop('error', 'invalid Form', 'Please complete all informations');
       return;
-        }
+    }
     else {
       const formData = new FormData();
       const data = this.addCompany.value;
-      Object.keys(data).forEach(key=>{
+      Object.keys(data).forEach(key => {
         formData.append(key, data[key]);
       });
-      if(this.photoUploaded !== null)
-      {
+      if (this.photoUploaded !== null) {
         formData.append('photo', this.photoUploaded, this.photoUploaded.name);
       }
 
@@ -101,14 +110,7 @@ export class CompaniesComponent implements OnInit {
   }
 
   deletecompany(id) {
-    Swal.fire({
-      title: 'Are you sure want to remove it?',
-      text: 'You will not be able to rstore this field!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Do it!',
-      cancelButtonText: 'No, keep it'
-    }).then((res) => {
+    this.sweetAlertService.confirm().then((res) => {
       if (res.isConfirmed) {
         this.companyService.deleteOne(id).subscribe(res => {
           this.toaster.pop('success', res);
@@ -118,10 +120,6 @@ export class CompaniesComponent implements OnInit {
             console.log(err);
           });
       }
-      else if (res.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire('Cancelled', 'Your have canceled this operation', 'error')
-      }
-
     });
 
   }

@@ -1,47 +1,57 @@
-<div class="card-body">
-  <div class="row mb-3">
-      <div class="col-md-4 offset-md-8">
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-header">
+      <strong>All Tags</strong>
+    </div>
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col-md-4 offset-md-8">
           <div class="input-group">
-              <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fa fa-search"></i></span>
-              </div>
-              <!-- <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name"/> -->
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>
+            <div class="row">
+              <button class="btn btn-sm btn-primary" (click)="open()">
+                <i class="fa fa-plus"></i> Add New Tag
+              </button>
+            </div>
+            <!-- <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name"/> -->
           </div>
+        </div>
       </div>
-  </div>
 
 
-  <h1>All Tags</h1>
-  <div style="overflow-x: auto">
-      <table datatable class="table table-striped table-hover table-responsive-lg display nowrap">
+      <div style="overflow-x: auto">
+        <table datatable class="table table-striped table-hover table-responsive-lg display nowrap">
           <thead>
-              <tr>
-                  <th>name</th>
-                  <th>description</th>
-                  <th>Actions</th>
-              </tr>
+            <tr>
+              <th class="text-center">Names</th>
+              <th class="text-center">Descriptions</th>
+              <th class="text-center">Actions</th>
+            </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let tag of tags">
-                  <td>{{ tag.name }}</td>
-                  <td>{{ tag.description }}</td>
-                  <td>
-                      <button class="btn btn-success btn-block" [routerLink]="['/tags/updateTag', tag._id]">Update</button>
-                          <!-- [routerLink]="['/companys/update', company._id]"></button> -->
-                      <button class="btn btn-danger btn-block" (click)="deleteTag(tag._id)">Delete</button>
-                  </td>
-              </tr>
+            <tr *ngFor="let tag of tags">
+              <td class="text-center">{{ tag.name }}</td>
+              <td class="text-center">{{ tag.description }}</td>
+              <td class="text-center">
+                <button class="btn btn-success btn-sm" [routerLink]="['/tags/updateTag', tag._id]">
+                  <i class="fa fa-edit"></i> Update
+                </button>
+                <!-- [routerLink]="['/companys/update', company._id]"></button> -->
+                <button class="btn btn-danger btn-sm" (click)="deleteTag(tag._id)">
+                  <i class="fa fa-trash"></i> Delete
+                </button>
+              </td>
+            </tr>
           </tbody>
-      </table>
-  </div>
-</div>
-
-<div class="row col-md-12"><button class="btn btn-block btn-primary" (click)="open()">Add New Tag</button>
-</div>
+        </table>
+      </div>
+    </div>
 
 <div bsModal #tagsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-aria-hidden="true">
-<div class="modal-dialog modal-primary" role="document">
+  aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Add new Company</h4>
@@ -84,7 +94,7 @@ aria-hidden="true">
             </div>
           </div>
           <div class="row">
-              <button type="button" class="btn btn-primary btn-block" (click)="saveTag()">Save Tag</button>
+            <button type="button" class="btn btn-primary btn-block" (click)="saveTag()">Save Tag</button>
           </div>
         </form>
       </div>
@@ -94,3 +104,7 @@ aria-hidden="true">
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+</div>
+</div>

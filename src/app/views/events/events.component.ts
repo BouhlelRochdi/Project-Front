@@ -8,6 +8,7 @@ import { DataTableService, TableData } from '../tables/datatable/datatable.servi
 import { EventsService } from '../../services/events.service';
 import { ToasterService } from 'angular2-toaster';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SweetAlertService } from '../../services/sweet-alert.service';
 // import { TableData, DataTableService } from '../tables/datatable/datatable.service';
 // import swal from 'sweetalert';
 
@@ -40,8 +41,7 @@ export class EventsComponent implements OnInit {
   constructor(private modalService: NgbModal, private http: HttpClient,
      private eventService: EventsService,
      private toasterService: ToasterService,
-     private router: Router,
-     private activatedRoute:ActivatedRoute) {
+     private sweetAlertService : SweetAlertService) {
    }
 
   ngOnInit(): void {
@@ -58,9 +58,7 @@ export class EventsComponent implements OnInit {
       eventType: new FormControl('', Validators.required),
       location: new FormControl('', Validators.required)
     });
-    // this.id = this.activatedRoute.snapshot.params.id;
     this.getAllEvents();
-
   }
 
   AddEvent() {
@@ -97,15 +95,17 @@ export class EventsComponent implements OnInit {
   }
 
   deleteEvent(id){
-    this.eventService.deleteEvent(id)
-    .subscribe( res => {
-      this.toasterService.pop('success', 'this Event was deleted');
-      this.getAllEvents();
-    },
-    err =>{
-      this.toasterService.pop('error', 'Something went wrong!', err)
-    })
-    
+    this.sweetAlertService.confirm().then((res) => {
+      if (res.isConfirmed) {
+        this.eventService.deleteEvent(id)
+        .subscribe( res => {
+          this.toasterService.pop('success', 'This Event was deleted');
+          this.getAllEvents();
+        },
+        err =>{
+          this.toasterService.pop('error', 'Something went wrong!', err)
+        })
+      }
+  })
   }
-
-}
+  }

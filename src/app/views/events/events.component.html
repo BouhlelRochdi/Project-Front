@@ -247,6 +247,12 @@
 
 </ng-template>
 
+
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-header">
+      <strong>All Events</strong>
+    </div>
 <!-- End modal template -->
 <div class="card-body">
   <div class="row mb-3">
@@ -255,45 +261,49 @@
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fa fa-search"></i></span>
         </div>
+        <div>
+          <button class="btn btn-primary" (click)="openLg(content)">
+            <i class="fa fa-plus"></i> Add event
+          </button>
+        </div>
         <!-- <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name"/> -->
       </div>
     </div>
   </div>
 
 
-  <h1>All Events</h1>
   <div style="overflow-x: auto">
     <table datatable class="table table-striped table-hover table-responsive-lg display nowrap">
       <thead>
         <tr>
-          <th>name</th>
-          <th>description</th>
-          <th>startDate</th>
-          <th>startTime</th>
-          <th>endDate</th>
-          <th>endTime</th>
-          <th>price</th>
-          <th>availableTicketNumber</th>
-          <th>eventType</th>
-          <th>location</th>
-          <th>Actions</th>
+          <th>Names</th>
+          <th>Start dates</th>
+          <!-- <th>Start times</th> -->
+          <th>End dates</th>
+          <!-- <th>End times</th> -->
+          <th>Available tickets number</th>
+          <th>Events type</th>
+          <th>Locations</th>
+          <th class="center">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let event of events">
           <td>{{ event.name }}</td>
-          <td>{{ event.description }}</td>
           <td>{{ event.startDate | date:'shortDate' }}</td>
-          <td>{{ event.startTime }}</td>
+          <!-- <td>{{ event.startTime }}</td> -->
           <td>{{ event.endDate | date:'shortDate' }}</td>
-          <td>{{ event.endTime }}</td>
-          <td>{{ event.price }}</td>
+          <!-- <td>{{ event.endTime }}</td> -->
           <td class="text-center">{{ event.availableTicketNumber }}</td>
           <td>{{ event.eventType }}</td>
           <td>{{ event.location }}</td>
-          <td>
-            <button class="btn btn-success btn-block" [routerLink]="['/events/update', event._id]">Update</button>
-            <button class="btn btn-danger btn-block" (click)="deleteEvent(event._id)">Delete</button>
+          <td class="center">
+            <button class="btn btn-success btn-sm" [routerLink]="['/events/update', event._id]">
+              <i class="fa fa-edit"></i> Update
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteEvent(event._id)">
+              <i class="fa fa-trash"></i> Delete
+            </button>
           </td>
         </tr>
       </tbody>
@@ -301,6 +311,7 @@
   </div>
 </div>
 <!-- Start display Events in array -->
-<div class="row">
-  <button class="btn btn-primary mb-2 mr-2" (click)="openLg(content)">Add Event</button>
+
+
+</div>
 </div>
