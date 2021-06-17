@@ -5,6 +5,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { CompanyService } from '../../services/company.service';
 import { IOption } from 'ng-select';
 import { SweetAlertService } from '../../services/sweet-alert.service';
+import jwt_decode from 'jwt-decode';
 
 
 @Component({
@@ -19,6 +20,8 @@ export class CompaniesComponent implements OnInit {
   companys: [];
   photoUploaded: File = null;
   photoUrl: any;
+  token = localStorage.getItem('token');
+  currentId: any;
   @ViewChild('companyModal') companyModal: ModalDirective;
   public roleCompany: Array<IOption> = [
     { label: 'Super Admin', value: 'superAdmin' },
@@ -32,6 +35,8 @@ export class CompaniesComponent implements OnInit {
 
 
   ngOnInit(): void {
+    const token = localStorage.getItem('token');
+    this.currentId = this.getCurrentIdFromToken(token);
     this.addCompany = new FormGroup({
       name: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
@@ -41,14 +46,13 @@ export class CompaniesComponent implements OnInit {
     });
     
     //data Table zone
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 5,
-      lengthMenu: [5, 10, 25],
-      processing: true
-    };
+    // this.dtOptions = {
+    //   pagingType: 'full_numbers',
+    //   pageLength: 5,
+    //   lengthMenu: [5, 10, 25],
+    //   processing: true
+    // };
     // End data Table zone
-    
     this.getAllCompanys();
   }
 
@@ -127,5 +131,16 @@ export class CompaniesComponent implements OnInit {
   openLg() {
     this.companyModal.show();
     // this.modalService.open(content, { size: 'lg', centered: true, scrollable: true });
+  }
+
+  getCurrentIdFromToken(token: string){
+    try{
+      const tokenInfo : any= jwt_decode(token);
+      const currentId = tokenInfo.id;
+        return currentId;
+    }
+    catch(Error){
+        return null;
+    }
   }
 }

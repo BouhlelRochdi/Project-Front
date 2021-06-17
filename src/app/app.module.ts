@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
@@ -38,6 +38,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DataTableModule } from 'angular2-datatable';
+import { SelectModule } from 'ng-select';
 
 @NgModule({
   imports: [
@@ -59,7 +60,9 @@ import { DataTableModule } from 'angular2-datatable';
     FontAwesomeModule,
     NgbModule,
     DataTableModule,
-    FormsModule
+    FormsModule,
+    CommonModule,
+    SelectModule
   ],
   declarations: [
     AppComponent,
