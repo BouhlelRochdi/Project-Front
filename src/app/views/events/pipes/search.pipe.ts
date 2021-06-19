@@ -10,8 +10,11 @@ export class SearchPipe implements PipeTransform {
     {
       const text = searchText.toLowerCase();
       return array.filter(item => {
-        return item?.name?.toLowerCase().includes(text) || item?.description?.toLowerCase().includes(text) ||
-        item?.email?.toLowerCase().includes(text) || item?.role?.toLowerCase().includes(text)
+        return item?.name?.toLowerCase().includes(text) ||
+        item?.eventType?.toLowerCase().includes(text) ||
+        item?.location?.toLowerCase().includes(text) || 
+        item?.availableTicketNumber?.toString().includes(text) ||
+        item?.price?.toLowerCase().includes(text)
       })
     }
     else{
