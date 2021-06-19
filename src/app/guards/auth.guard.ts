@@ -20,7 +20,6 @@ export class AuthGuard implements CanActivate {
       const token = localStorage.getItem('token');
       const decoded: any = jwt_decode(token);
       const isExpiredToken = (Math.floor((new Date).getTime() / 1000)) >= decoded.exp;
-      console.log(isExpiredToken);
       if (isExpiredToken) {
         localStorage.removeItem('token');
         this.router.navigateByUrl('/login');
