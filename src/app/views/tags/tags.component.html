@@ -4,37 +4,39 @@
       <strong>All Tags</strong>
     </div>
     <div class="card-body">
-      
+
       <div class="row mb-3">
         <div class="col-md-4">
-            <button type="button" class="btn btn-primary" data-toggle="modal" (click)="open()">
-                <i class="fa fa-plus"></i> Add Tag
-            </button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" (click)="open()">
+            <i class="fa fa-plus"></i> Add Tag
+          </button>
         </div>
         <div class="col-md-4 offset-md-3">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fa fa-search"></i></span>
-                </div>
-                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search ..." />
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-search"></i></span>
             </div>
+            <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search ..." />
+          </div>
         </div>
-    </div>
+      </div>
 
       <div style="overflow-x: auto">
         <table datatable [mfData]="tags | search : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10"
-        class="table table-striped table-hover table-responsive-lg display nowrap">
+          class="table table-striped table-hover table-responsive-lg display nowrap">
+          
           <thead>
             <tr>
               <th>
-              <mfDefaultSorter by="name">Name</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="description">Descriptions</mfDefaultSorter>
-            </th>
+                <mfDefaultSorter by="name">Name</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="description">Descriptions</mfDefaultSorter>
+              </th>
               <th class="text-center">Actions</th>
             </tr>
           </thead>
+
           <tbody>
             <tr *ngFor="let tag of mf.data">
               <td class="text-center">{{ tag.name }}</td>
@@ -50,66 +52,82 @@
               </td>
             </tr>
           </tbody>
+
+          <tfoot>
+            <tr>
+              <td colspan="5">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+
         </table>
       </div>
     </div>
 
-<div bsModal #tagsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-primary" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Add new Company</h4>
-        <button type="button" class="close" (click)="tagsModal.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="tagsForm">
-          <h2 class>
-            <p class="text-muted">Create Tag</p>
-          </h2>
-          <div class="mb-3">
-            <label for="name">
-              Name
-            </label>
-            <div for="name">
-              <input type="text" class="form-control" placeholder="Name" autocomplete="Name" formControlName="name"
-                id="name"
-                [ngClass]="{'is-valid': submited && tagsForm.controls.name.valid, 'is-invalid': submited && tagsForm.controls.name.invalid}">
-              <div *ngIf="tagsForm.controls.name.errors" class="invalid-feedback d-block">
-                <div *ngIf="tagsForm.controls.name.errors.required && submited">
-                  Name is required ..
-                </div>
-                <div *ngIf="tagsForm.controls.name.errors.name && submited">
-                  Name Format is required ..
+    <div bsModal #tagsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add new Company</h4>
+            <button type="button" class="close" (click)="tagsModal.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="tagsForm">
+              <h2 class>
+                <p class="text-muted">Create Tag</p>
+              </h2>
+              <div class="mb-3">
+                <label for="name">
+                  Name
+                </label>
+                <div for="name">
+                  <input type="text" class="form-control" placeholder="Name" autocomplete="Name" formControlName="name"
+                    id="name"
+                    [ngClass]="{'is-valid': submited && tagsForm.controls.name.valid, 'is-invalid': submited && tagsForm.controls.name.invalid}">
+                  <div *ngIf="tagsForm.controls.name.errors" class="invalid-feedback d-block">
+                    <div *ngIf="tagsForm.controls.name.errors.required && submited">
+                      Name is required ..
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="description">
-              Description
-            </label>
-            <div for="description">
-              <textarea name="description" id="description" cols="mx-auto" rows="10" class="form-control"
-                placeholder="description" autocomplete="current-description" formControlName="description"
-                id="description">
-                              </textarea>
-            </div>
-          </div>
-          <div class="row">
-            <button type="button" class="btn btn-primary btn-block" (click)="saveTag()">Save Tag</button>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary btn-block" (click)="tagsModal.hide()">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
 
-</div>
+              <div class="mb-3">
+                <label for="description">
+                  Description
+                </label>
+                <div for="description">
+                  <textarea name="description" id="description" cols="mx-auto" rows="10" class="form-control"
+                    placeholder="description" autocomplete="current-description" formControlName="description"
+                    id="description"
+                    [ngClass]="{'is-valid': submited && tagsForm.controls.description.valid, 'is-invalid': submited && tagsForm.controls.description.invalid }"> </textarea>
+                </div>
+                <div *ngIf="tagsForm.controls.description.errors" class="invalid-feedback d-block">
+                  <div *ngIf="tagsForm.controls.description.errors.required && submited">
+                    Description is required ..
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div class="row">
+                <button type="button" class="btn btn-primary btn-block" (click)="saveTag()">Save Tag</button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-block" (click)="tagsModal.hide()">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+  </div>
 </div>
