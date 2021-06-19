@@ -1,10 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToasterService } from 'angular2-toaster';
 import { TagsService } from '../../services/tags.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import Swal from 'sweetalert2';
 import { SweetAlertService } from '../../services/sweet-alert.service';
 
 @Component({
@@ -16,6 +14,7 @@ export class TagsComponent implements OnInit {
   tagsForm: FormGroup;
   submited = false;
   tags: [];
+  filterQuery: string = null;
   @ViewChild('tagsModal') tagsModal: ModalDirective;
 
   constructor(private tagsService : TagsService,
@@ -49,7 +48,8 @@ export class TagsComponent implements OnInit {
     } 
   }
 
-  open() {
+//Open Modal
+  open() { 
     this.tagsModal.show();
 }
 
