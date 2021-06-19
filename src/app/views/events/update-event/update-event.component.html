@@ -10,9 +10,10 @@
                                 <p class="text-muted">Creat Events</p>
 
 
+                                <!-- Name -->
                                 <div class="mb-3">
                                     <label for="name">
-                                        Description
+                                        Name
                                     </label>
                                     <div for="name">
                                         <input type="text" class="form-control" placeholder="Events Name"
@@ -27,7 +28,7 @@
                                 </div>
 
 
-
+                                <!-- Description -->
                                 <div class="mb-3">
                                     <label for="description">
                                         Description
@@ -48,7 +49,7 @@
 
 
 
-
+                                <!-- Start Date -->
                                 <div class="mb-3">
                                     <label for="startDate">
                                         Start Date
@@ -67,6 +68,7 @@
                                 </div>
 
 
+                                <!-- Start Time -->
                                 <div class="mb-3">
                                     <label for="startTime">
                                         Start Time
@@ -90,6 +92,7 @@
                                 </div>
 
 
+                                <!-- End Date -->
                                 <div class="mb-3">
                                     <label for="endDate">
                                         End Date
@@ -108,7 +111,7 @@
                                 </div>
 
 
-
+                                <!-- End Time -->
                                 <div class="mb-3">
                                     <label for="endTime">
                                         End Time
@@ -131,23 +134,20 @@
                                 </div>
 
 
-                                <div class="mb-3">
-                                    <label for="photo">
-                                        Photo
-                                    </label>
-                                    <div for="photo">
-                                        <input type="file" class="form-control" placeholder="photo" autocomplete="photo"
-                                            formControlName="photo" (change)="onFileSelect($event)" id="photo">
-                                            <!-- [ngClass]="{'is-valid': submited && updateEvent.controls.photo.valid, 'is-invalid': submited && updateEvent.controls.photo.invalid}"> -->
-                                        <!-- <div *ngIf="updateEvent.controls.photo.errors" class="invalid-feedback d-block">
-                                            <div *ngIf="updateEvent.controls.photo.errors.required && submited">
-                                                Photo is required ..
-                                            </div>
-                                        </div> -->
+                                <!-- Photo -->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">@</span>
                                     </div>
+                                    <input type="file" class="form-control" name="photo" (change)="onFileSelect($event)"
+                                        accept="image/*">
+                                </div>
+                                <div *ngIf="photoUrl" class="my-3 text-center">
+                                    <img [src]="photoUrl" height="10%" width="10%" *ngIf="photoUrl">
                                 </div>
 
 
+                                <!-- Price -->
                                 <div class="mb-3">
                                     <label for="price">
                                         Price
@@ -165,7 +165,7 @@
                                 </div>
 
 
-
+                                <!-- availableTicketNumber -->
                                 <div class="mb-3">
                                     <label for="availableTicketNumber">
                                         Available Ticket Number
@@ -186,7 +186,7 @@
                                 </div>
 
 
-
+                                <!-- Event Type -->
                                 <div class="mb-3">
                                     <label for="eventType">
                                         Event Type
@@ -210,7 +210,7 @@
                                 </div>
 
 
-
+                                <!-- Location -->
                                 <div class="mb-3">
                                     <label for="location">
                                         Location

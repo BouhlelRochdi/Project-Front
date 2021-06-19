@@ -1,17 +1,13 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormsModule} from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
 import { IOption } from 'ng-select';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { NgbModal, NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
-import { DataTableService, TableData } from '../tables/datatable/datatable.service';
+import { DataTableService } from '../tables/datatable/datatable.service';
 import { EventsService } from '../../services/events.service';
 import { ToasterService } from 'angular2-toaster';
-import { ActivatedRoute, Router } from '@angular/router';
 import { SweetAlertService } from '../../services/sweet-alert.service';
-// import { TableData, DataTableService } from '../tables/datatable/datatable.service';
-// import swal from 'sweetalert';
-
 
 @Component({
   selector: 'app-events',
@@ -21,17 +17,18 @@ import { SweetAlertService } from '../../services/sweet-alert.service';
   styleUrls: []
 })
 export class EventsComponent implements OnInit {
-  @ViewChild('myModal') public myModal: ModalDirective;
+  @ViewChild('eventModal') public eventModal: ModalDirective;
   eventsForm: FormGroup;
   submited = false;
   events : [];
-  // timeStart = {hour: 10, minute: 30};
-  // timeEnd = {hour: 17, minute: 15};
-  hoveredDate: NgbDate | null = null;
-  fromDate: NgbDate | null;
-  toDate: NgbDate | null;
+  filterQuery : string = null;
+  photoUploaded: File = null;
+  photoUrl: any;
+  // *****************************
+  
+   
 
-
+  // *****************************
   public type: Array<IOption> = [
     {label: 'Free', value: 'free'},
     {label: 'Paid', value: 'Paid'},
@@ -64,6 +61,8 @@ export class EventsComponent implements OnInit {
   AddEvent() {
     this.submited = true;
     if(this.eventsForm.invalid){
+      console.log('testtttt');
+      
       return;
     }
     else{
@@ -71,7 +70,7 @@ export class EventsComponent implements OnInit {
       .subscribe(res => {
         this.toasterService.pop('success', 'Events has been Add', res);
         this.eventsForm.reset();
-        this.myModal.hide();
+        this.eventModal.hide();
         this.getAllEvents();
       }, err => {
         this.toasterService.pop('error', 'There is something went wrong verify this error', err);
@@ -90,8 +89,8 @@ export class EventsComponent implements OnInit {
   }
 
 
-  openLg(content) {
-    this.modalService.open(content, { size: 'lg', centered: true, scrollable : true });
+  openLg() {
+    this.eventModal.show();
   }
 
   deleteEvent(id){
@@ -108,4 +107,29 @@ export class EventsComponent implements OnInit {
       }
   })
   }
+
+  onFileSelect(event) {
+    if (event.target.files.length == 0) {
+      this.toasterService.pop('error', 'Photo Errors', 'Please select an image file')
+      return;
+    }
+    else {
+      this.photoUploaded = (event.target as HTMLInputElement).files[0];
+      const allowedExtensionFile = ['image/jpg', 'image/jpeg', 'image/png'];
+      if (!allowedExtensionFile.includes(this.photoUploaded.type)) {
+        this.toasterService.pop('error', 'Photo Errors', 'Only those extension are acceptable! [jpg, jpeg, png]')
+        return;
+      }
+      else {
+        const readFile = new FileReader();
+        readFile.readAsDataURL(this.photoUploaded);
+        readFile.onload = (event) => {
+          this.photoUrl = readFile.result;
+        }
+      }
+    }
+  }
+  // ************************************
+
+  // ************************************
   }

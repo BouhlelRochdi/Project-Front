@@ -15,6 +15,8 @@ export class UpdateEventComponent implements OnInit {
   submited = false;
   id;
   events : [];
+  photoUploaded: File = null;
+  photoUrl: any;
   public type: Array<IOption> = [
     {label: 'Free', value: 'free'},
     {label: 'Paid', value: 'Paid'},
@@ -43,16 +45,29 @@ export class UpdateEventComponent implements OnInit {
     });
     this.id = this.activedRouter.snapshot.params.id;
     this.getCurrentEvent(this.id);
-    // const formData = new FormData();
-    // formData.append('file', this.updateEvent.get('profile').value);
   }
 
-  // onFileSelect(event) {
-  //   if (event.target.files.length > 0) {
-  //     const file = event.target.files[0];
-  //     this.updateEvent.get('photo').setValue(file);
-  //   }
-  // }
+  onFileSelect(event) {
+    if (event.target.files.length == 0) {
+      this.toasterService.pop('error', 'Photo Errors', 'Please select an image file')
+      return;
+    }
+    else {
+      this.photoUploaded = (event.target as HTMLInputElement).files[0];
+      const allowedExtensionFile = ['image/jpg', 'image/jpeg', 'image/png'];
+      if (!allowedExtensionFile.includes(this.photoUploaded.type)) {
+        this.toasterService.pop('error', 'Photo Errors', 'Only those extension are acceptable! [jpg, jpeg, png]')
+        return;
+      }
+      else {
+        const readFile = new FileReader();
+        readFile.readAsDataURL(this.photoUploaded);
+        readFile.onload = (event) => {
+          this.photoUrl = readFile.result;
+        }
+      }
+    }
+  }
 
   update(){  
     this.submited = true;
@@ -78,8 +93,5 @@ export class UpdateEventComponent implements OnInit {
       this.toasterService.pop('error', 'Something goes wrong!');
     })
   }
-
-  
-
 
 }
