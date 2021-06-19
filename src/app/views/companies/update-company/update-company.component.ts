@@ -20,6 +20,8 @@ export class UpdateCompanyComponent implements OnInit {
   company: [];
   enablePassword = false;
   enableRole = false;
+  photoUploaded: File = null;
+  photoUrl: any;
   public roleCompany: Array<IOption> = [
     { label: 'Super Admin', value: 'superAdmin' },
     { label: 'Admin', value: 'admin' }
@@ -28,11 +30,12 @@ export class UpdateCompanyComponent implements OnInit {
   constructor(private companyService: CompanyService,
     private toasterService: ToasterService,
     private router: Router,
-    private activedRouter: ActivatedRoute) { }
+    private activedRouter: ActivatedRoute,
+    private toaster : ToasterService) { }
 
   ngOnInit(): void {
 
-    this.id = this.activedRouter.snapshot.params.id;
+    this.id = this.activedRouter.snapshot.params.id; //get Id Company sent in URL
     const token = localStorage.getItem('token');
     const role = this.getRoleFromToken(token);
     const currentId = this.getCurrentIdFromToken(token);
@@ -62,6 +65,28 @@ export class UpdateCompanyComponent implements OnInit {
     })
   }
 
+  onFileSelect(event){
+    if (event.target.files.length == 0) {
+      this.toaster.pop('error', 'Photo Errors', 'Please select an image file')
+      return;
+    }
+    else {
+      this.photoUploaded = (event.target as HTMLInputElement).files[0];
+      const allowedExtensionFile = ['image/jpg', 'image/jpeg', 'image/png'];
+      if (!allowedExtensionFile.includes(this.photoUploaded.type)) {
+        this.toaster.pop('error', 'Photo Errors', 'Only those extension are acceptable! [jpg, jpeg, png]')
+        return;
+      }
+      else {
+        const readFile = new FileReader();
+        readFile.readAsDataURL(this.photoUploaded);
+        readFile.onload = (event) => {
+          this.photoUrl = readFile.result;
+        }
+      }
+    }
+  }
+
   getCurrentCompany(id) {
     this.companyService.getCurrentCompany(id).subscribe(res => {
       this.updateCompany.patchValue(res);
@@ -81,6 +106,7 @@ export class UpdateCompanyComponent implements OnInit {
       return null;
     }
   }
+
   getCurrentIdFromToken(token: string) {
     try {
       const tokenInfo: any = jwt_decode(token);
