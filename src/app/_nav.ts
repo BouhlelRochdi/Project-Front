@@ -44,6 +44,11 @@ export const navItems: NavData[] = [
     name: 'Menu'
   },
   {
+    name: 'Home',
+    url: '/home',
+    icon: 'icon-home'
+  },
+  {
     name: 'companies',
     url: '/companies',
     icon: 'icon-user'
