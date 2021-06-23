@@ -22,6 +22,7 @@ export class CompaniesComponent implements OnInit {
   photoUrl: any;
   token = localStorage.getItem('token');
   currentId: any;
+  currentRole: any;
   @ViewChild('companyModal') companyModal: ModalDirective;
   filterQuery: string = null;
   public roleCompany: Array<IOption> = [
@@ -36,6 +37,7 @@ export class CompaniesComponent implements OnInit {
   ngOnInit(): void {
     const token = localStorage.getItem('token');
     this.currentId = this.getCurrentIdFromToken(token);
+    this.currentRole = this.getRoleFromToken(token);
     this.addCompany = new FormGroup({
       name: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
@@ -60,6 +62,7 @@ export class CompaniesComponent implements OnInit {
         return;
       }
       else {
+        // this part is to review the photo in the form
         const readFile = new FileReader();
         readFile.readAsDataURL(this.photoUploaded);
         readFile.onload = (event) => {
@@ -128,6 +131,17 @@ export class CompaniesComponent implements OnInit {
       const tokenInfo : any= jwt_decode(token);
       const currentId = tokenInfo.id;
         return currentId;
+    }
+    catch(Error){
+        return null;
+    }
+  }
+
+  getRoleFromToken (token: string){
+    try{
+      const tokenInfo : any= jwt_decode(token);
+      const currentRole = tokenInfo.role;
+        return currentRole;
     }
     catch(Error){
         return null;
