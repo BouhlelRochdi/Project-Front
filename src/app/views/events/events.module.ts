@@ -10,13 +10,17 @@ import { UpdateEventComponent } from './update-event/update-event.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { DataTableModule } from 'angular2-datatable';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { EventDetailComponent } from './event-detail/event-detail.component';
+import { ReservationComponent } from './reservation/reservation.component';
 
 
 @NgModule({
   declarations: [
     EventsComponent,
     UpdateEventComponent,
-    SearchPipe
+    SearchPipe,
+    EventDetailComponent,
+    ReservationComponent
   ],
   imports: [
     CommonModule,

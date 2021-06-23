@@ -26,4 +26,9 @@ export class EventsService {
   getCurrentEvent(id): Observable <any>{
     return this.httpClient.get(`http://localhost:3000/api/events/${id}`);
   }
+
+  getAllTags(): Observable <any>{
+    return this.httpClient.get('http://localhost:3000/api/tags');
+  }
+
 }
