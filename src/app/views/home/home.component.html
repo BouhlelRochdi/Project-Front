@@ -1,0 +1,21 @@
+<div *ngFor="let event of events">
+
+      <div class="card-deck mt-3">
+        <div class="card">
+          <img *ngIf="event.photo != null && event.photo != undefined && event.photo !=''" 
+                [src]="'http://localhost:3000/uploads/Events/' + event.photo"
+                width="50" height="50"/>
+          <div class="card-body">
+            <h5 class="card-title"> {{event.name}} </h5>
+            <p class="card-text"> {{event.description}} </p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted"> {{event.endDate}} </small>
+          <div>
+              <button class="btn btn-info my-2 text-white" [routerLink]="['/events/event-detail', event._id]">Show detailes</button>
+          </div>
+          </div>
+        </div>
+      </div>
+        
+</div>
