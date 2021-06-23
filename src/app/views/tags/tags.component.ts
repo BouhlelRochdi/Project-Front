@@ -38,9 +38,9 @@ export class TagsComponent implements OnInit {
       this.tagsService.saveTags(this.tagsForm.value).subscribe(
         res =>{
           this.toaster.pop('success', 'Tags has been Add', res);
-          console.log(res._id);
           this.getAllTags();
           this.tagsModal.hide();          
+         
         },
          err => {
            console.log(err)
