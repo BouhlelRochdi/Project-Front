@@ -1,0 +1,105 @@
+<div class="Reservation">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="">
+                <div class="reservation-card card">
+                    <div class="card-header">
+                        <strong>Reservation</strong>
+                    </div>
+                    <form [formGroup]="reservationForm">
+                        <div class="card-body">
+                            <label>
+                                <h2>Contact :</h2>
+                            </label>
+                            <div class="row">
+                                <div class="col-4 form-group">
+                                    <input type="text" class="form-control" placeholder="First Name"
+                                        formControlName="firstName"
+                                        [ngClass]="{'is-valid': submited && reservationForm.controls.firstName.valid, 'is-invalid': submited && reservationForm.controls.firstName.invalid}">
+                                    <div *ngIf="reservationForm.controls.firstName.errors"
+                                        class="invalid-feedback d-block">
+                                        <div *ngIf="reservationForm.controls.firstName.errors.required && submited">
+                                            First name is required ..
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4 form-group">
+                                    <input type="text" class="form-control" placeholder="Last Name"
+                                        formControlName="lastName"
+                                        [ngClass]="{'is-valid': submited && reservationForm.controls.lastName.valid, 'is-invalid': submited && reservationForm.controls.lastName.invalid}">
+                                    <div *ngIf="reservationForm.controls.lastName.errors"
+                                        class="invalid-feedback d-block">
+                                        <div *ngIf="reservationForm.controls.lastName.errors.required && submited">
+                                            Last name is required ..
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-8 form-group">
+                                    <input type="email" class="form-control" placeholder="E-mail"
+                                        formControlName="email"
+                                        [ngClass]="{'is-valid': submited && reservationForm.controls.email.valid, 'is-invalid': submited && reservationForm.controls.email.invalid}">
+                                    <div *ngIf="reservationForm.controls.email.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="reservationForm.controls.email.errors.required && submited">
+                                            E-mail is required ..
+                                        </div>
+                                        <div *ngIf="submited && reservationForm.controls.errors.email ">
+                                            Invalid E-mail.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+
+                            </div>
+
+                            <!-- New User Reservation -->
+
+                            <div formArrayName="skills">
+                                <p><b> Add new reservation </b>
+                                    <button (click)="addReservation()" class="btn btn-block btn-info"> New Reservation</button>
+                                </p>
+                                <div *ngFor ="let newOne of getNewReservation.controls; let i= index">
+                                    <div [formGroupName]="i">
+                                    <input class="form-control" formControlName="fName" type="text"
+                                        placeholder="First Name"
+                                        [ngClass]="{'is-invalid': submitted && getNewReservation.controls[i].get('fName').invalid, 'is-valid': submitted && getNewReservation.controls[i].get('fName').valid }">
+                                    <div class="invalid-feedback d-block"
+                                        *ngIf="submitted && getNewReservation.controls[i].get('fName').errors.required">
+                                        First Name is required.
+                                    </div>
+                                    <input class="form-control" formControlName="lName" type="text"
+                                        placeholder="Last Name"
+                                        [ngClass]="{'is-invalid': submitted && getNewReservation.controls[i].get('lName').invalid, 'is-valid': submitted && getNewReservation.controls[i].get('lName').valid }">
+                                    <div class="invalid-feedback d-block"
+                                        *ngIf="submitted && getNewReservation.controls[i].get('lName').errors.required">
+                                        Last Name is required.
+                                    </div>
+                                    <input class="form-control" formControlName="otherEmail" type="text"
+                                        placeholder="E-mail"
+                                        [ngClass]="{'is-invalid': submitted && getNewReservation.controls[i].get('otherEmail').invalid, 'is-valid': submitted && getNewReservation.controls[i].get('otherEmail').valid }">
+                                    <div class="invalid-feedback d-block"
+                                        *ngIf="submitted && getNewReservation.controls[i].get('otherEmail').errors.required">
+                                        E-mail is required.
+                                    </div>
+                                 </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <hr>
+                        <div>
+                            <button type="button" class="btn btn-secondary"
+                                [routerLink]="['/events/event-detail/', reserv?._id]">
+                                <i class="fa fa-arrow-left"></i> Cancel</button>
+                            <button type="submit" (click)="valider()" class="btn btn-primary float-right">
+                                <i class="fa fa-check"></i> Valider</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
