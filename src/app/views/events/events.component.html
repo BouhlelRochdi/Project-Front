@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
 
-
+      
       <div class="modal-header">
         <h4 class="modal-title">Add a tag</h4>
         <button type="button" class="close" (click)="companyModal.hide()" aria-label="Close">
@@ -12,11 +12,12 @@
       </div>
 
 
+      <form [formGroup]="eventsForm">
       <div class="modal-body">
 
         <!-- content body  (contain eventsForm)-->
-        <form [formGroup]="eventsForm">
-          <h3 class="text-muted">Creat Events</h3>
+        
+          <h3 class="text-muted">Create new event</h3>
 
 
           <!-- Name -->
@@ -63,7 +64,7 @@
               Start Date
             </label>
             <div for="startDate">
-              <input type="datetime-local" class="form-control" placeholder="startDate" autocomplete="startDate"
+              <input type="date" class="form-control" placeholder="startDate" autocomplete="startDate"
                 formControlName="startDate" id="startDate"
                 [ngClass]="{'is-valid': submited && eventsForm.controls.startDate.valid, 'is-invalid': submited && eventsForm.controls.startDate.invalid}">
               <div *ngIf="eventsForm.controls.startDate.errors" class="invalid-feedback d-block">
@@ -104,7 +105,7 @@
               End Date
             </label>
             <div for="endDate">
-              <input type="datetime-local" class="form-control" autocomplete="endDate" formControlName="endDate"
+              <input type="date" class="form-control" autocomplete="endDate" formControlName="endDate"
                 id="endDate"
                 [ngClass]="{'is-valid': submited && eventsForm.controls.endDate.valid, 'is-invalid': submited && eventsForm.controls.endDate.invalid}">
               <div *ngIf="eventsForm.controls.endDate.errors" class="invalid-feedback d-block">
@@ -207,7 +208,6 @@
           </div>
 
 
-
           <!-- Location -->
           <div class="mb-3">
             <label for="location">
@@ -225,24 +225,27 @@
             </div>
           </div>
 
+          <!-- ************ Tags **************** -->
+              <fieldset class="form-group">
+                <ng-select
+                class="bootstrap"
+                placeholder="Choose your tags"
+                [options]="tags"
+                [multiple]="true"
+                formControlName="tags"></ng-select>
+              </fieldset>
 
-
-          <!-- Essaie -->
-
-
-
-          <!-- Buttons -->
-          <button type="button" class="btn btn-block btn-success" (click)="AddEvent()">Create
-            An Events</button>
-        </form>
-
+          <!-- ************* End Tags ********************** -->
       </div>
 
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary btn-block" (click)="eventModal.hide()">Close</button>
+        <button type="button" class="btn btn-block btn-success" (click)="AddEvent()">
+          <i class="fa fa-save"></i> Create An Events</button>
+        <button type="button" class="btn btn-secondary btn-block text-white" (click)="eventModal.hide()">
+          <i class="fa fa-close"></i> Close</button>
       </div>
-
+    </form>
 
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -299,7 +302,11 @@
           <tbody>
             <tr *ngFor="let event of mf.data">
               <td>{{ event.name }}</td>
-              <td class="text-center">{{ event.photo }}</td>
+              <td class="text-center">
+                <img *ngIf="event.photo != null && event.photo != undefined && event.photo !=''" 
+                [src]="'http://localhost:3000/uploads/Events/' + event.photo"
+                width="30" height="30"/>
+              </td>
               <td class="text-center">{{ event.availableTicketNumber }}</td>
               <td>{{ event.eventType }}</td>
               <td>{{ event.location }}</td>
