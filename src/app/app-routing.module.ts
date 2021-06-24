@@ -109,7 +109,6 @@ export const routes: Routes = [
       { path: 'tags', loadChildren: () => import('./views/tags/tags.module').then(m => m.TagsModule) },
       { path: 'events', loadChildren: () => import('./views/events/events.module').then(m => m.EventsModule) },
       { path: 'companies', loadChildren: () => import('./views/companies/companies.module').then(m => m.CompaniesModule) },
-      { path: 'home', loadChildren: () => import('./views/home/home.module').then(m => m.HomeModule) },
     ]
   },
   { path: 'home', loadChildren: () => import('./views/home/home.module').then(m => m.HomeModule) },

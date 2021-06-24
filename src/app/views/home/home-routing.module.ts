@@ -4,23 +4,22 @@ import { EventDetailComponent } from './components/event-detail/event-detail.com
 import { ReservationComponent } from './components/reservation/reservation.component';
 import { HomeComponent } from './home.component';
 
-const routes: Routes = [{
-  path: '', component: HomeComponent, data: {
-    title: 'home'
-  }
-},
-{
-  path: 'home',
-  component: HomeComponent
-},
-{
-  path: 'event-detail/:id',
-  component: EventDetailComponent
-},
-{
-  path: 'reservation/:id',
-  component: ReservationComponent
-}];
+const routes: Routes = [
+  {
+    path: '', component: HomeComponent
+  },
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: 'event-detail/:id',
+    component: EventDetailComponent
+  },
+  {
+    path: 'reservation/:id',
+    component: ReservationComponent
+  }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
