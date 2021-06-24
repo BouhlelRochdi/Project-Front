@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { IOption } from 'ng-select';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { DataTableService } from '../tables/datatable/datatable.service';
 import { EventsService } from '../../services/events.service';
 import { ToasterService } from 'angular2-toaster';
 import { SweetAlertService } from '../../services/sweet-alert.service';
@@ -11,7 +10,6 @@ import { TagsService } from '../../services/tags.service';
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
-  providers: [ DataTableService ],
   encapsulation: ViewEncapsulation.None,
   styleUrls: []
 })
