@@ -55,7 +55,7 @@
                                         Start Date
                                     </label>
                                     <div for="startDate">
-                                        <input type="datetime-local" class="form-control" placeholder="startDate"
+                                        <input type="date" class="form-control" placeholder="startDate"
                                             autocomplete="startDate" formControlName="startDate" id="startDate"
                                             [ngClass]="{'is-valid': submited && updateEvent.controls.startDate.valid, 'is-invalid': submited && updateEvent.controls.startDate.invalid}">
                                         <div *ngIf="updateEvent.controls.startDate.errors"
@@ -98,7 +98,7 @@
                                         End Date
                                     </label>
                                     <div for="endDate">
-                                        <input type="datetime-local" class="form-control" placeholder="endDate"
+                                        <input type="date" class="form-control" placeholder="endDate"
                                             autocomplete="endDate" formControlName="endDate" id="endDate"
                                             [ngClass]="{'is-valid': submited && updateEvent.controls.endDate.valid, 'is-invalid': submited && updateEvent.controls.endDate.invalid}">
                                         <div *ngIf="updateEvent.controls.endDate.errors"
@@ -229,10 +229,18 @@
                                 </div>
 
 
+                                <!-- ************ Tags **************** -->
+                                <fieldset class="form-group">
+                                    <ng-select class="bootstrap" placeholder="Choose your tags" [options]="tags"
+                                        [multiple]="true" formControlName="tags"></ng-select>
+                                </fieldset>
+
+
+                                
                                 <div class="row mb-3">
                                     <div class="col-md-4">
-                                        <button type="button" class="btn btn-block btn-success"
-                                            (click)="update()"><i class="fa fa-save"></i>  Update
+                                        <button type="button" class="btn btn-block btn-success" (click)="update()"><i
+                                                class="fa fa-save"></i> Update
                                             Company</button>
                                     </div>
                                     <div class="col-md-3 offset-md-5">

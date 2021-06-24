@@ -15,10 +15,10 @@
                                 <div class="col-4 form-group">
                                     <input type="text" class="form-control" placeholder="First Name"
                                         formControlName="firstName"
-                                        [ngClass]="{'is-valid': submited && reservationForm.controls.firstName.valid, 'is-invalid': submited && reservationForm.controls.firstName.invalid}">
-                                    <div *ngIf="reservationForm.controls.firstName.errors"
+                                        [ngClass]="{'is-valid': submited && reservationForm?.controls.firstName.valid, 'is-invalid': submited && reservationForm?.controls.firstName.invalid}">
+                                    <div *ngIf="reservationForm?.controls.firstName.errors"
                                         class="invalid-feedback d-block">
-                                        <div *ngIf="reservationForm.controls.firstName.errors.required && submited">
+                                        <div *ngIf="reservationForm?.controls.firstName.errors.required && submited">
                                             First name is required ..
                                         </div>
                                     </div>
@@ -56,11 +56,11 @@
 
                             <!-- New User Reservation -->
 
-                            <div formArrayName="skills">
+                            <div formArrayName="newReservation">
                                 <p><b> Add new reservation </b>
                                     <button (click)="addReservation()" class="btn btn-block btn-info"> New Reservation</button>
                                 </p>
-                                <div *ngFor ="let newOne of getNewReservation.controls; let i= index">
+                                <div *ngFor ="let newOne of getNewReservation?.controls; let i= index">
                                     <div [formGroupName]="i">
                                     <input class="form-control" formControlName="fName" type="text"
                                         placeholder="First Name"
@@ -92,7 +92,7 @@
                         <hr>
                         <div>
                             <button type="button" class="btn btn-secondary"
-                                [routerLink]="['/events/event-detail/', reserv?._id]">
+                                [routerLink]="['/events/event-detail/', id]">
                                 <i class="fa fa-arrow-left"></i> Cancel</button>
                             <button type="submit" (click)="valider()" class="btn btn-primary float-right">
                                 <i class="fa fa-check"></i> Valider</button>

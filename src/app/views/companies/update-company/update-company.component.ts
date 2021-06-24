@@ -90,6 +90,8 @@ export class UpdateCompanyComponent implements OnInit {
   getCurrentCompany(id) {
     this.companyService.getCurrentCompany(id).subscribe(res => {
       this.updateCompany.patchValue(res);
+      console.log(res);
+      
     },
       err => {
         console.log(err);

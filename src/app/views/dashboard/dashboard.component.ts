@@ -1,12 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { getStyle, hexToRgba } from '@coreui/coreui-pro/dist/js/coreui-utilities';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
+import { DashboardService } from '../../services/dashboard.service';
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
   templateUrl: 'dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
+  
 
+  info :any =[];
+  constructor(private dashboard: DashboardService, private toaster: ToasterService) { }
+  
   radioModel: string = 'Month';
 
   // lineChart1
@@ -385,5 +391,19 @@ export class DashboardComponent implements OnInit {
       this.mainChartData2.push(this.random(80, 100));
       this.mainChartData3.push(65);
     }
+
+    this.getInfo();
+  }
+
+  getInfo(){
+    this.dashboard.getInfo().subscribe(res =>{
+      this.info = res;
+      console.log(res);
+      
+    },
+    err => {
+      this.toaster.pop('error', 'Error when loading dashboard');
+    }
+    );
   }
 }

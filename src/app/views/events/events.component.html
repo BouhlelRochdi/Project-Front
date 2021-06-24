@@ -303,6 +303,7 @@
             <tr *ngFor="let event of mf.data">
               <td>{{ event.name }}</td>
               <td class="text-center">
+                <!-- we have to create url photo to can display it and at the end we add event.photo -->
                 <img *ngIf="event.photo != null && event.photo != undefined && event.photo !=''" 
                 [src]="'http://localhost:3000/uploads/Events/' + event.photo"
                 width="30" height="30"/>

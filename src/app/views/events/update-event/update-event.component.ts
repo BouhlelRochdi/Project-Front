@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
 import { IOption } from 'ng-select';
 import { EventsService } from '../../../services/events.service';
+import { TagsService } from '../../../services/tags.service';
 
 @Component({
   selector: 'app-update-event',
@@ -22,11 +23,14 @@ export class UpdateEventComponent implements OnInit {
     {label: 'Paid', value: 'Paid'},
   ];
 
+  public tags: Array<IOption> = [];
+
 
   constructor(private eventService: EventsService,
     private toasterService: ToasterService, 
     private activedRouter:ActivatedRoute, 
-    private router:Router) { }
+    private router:Router,
+    private tagsService: TagsService) { }
     
 
   ngOnInit(): void {
@@ -41,7 +45,8 @@ export class UpdateEventComponent implements OnInit {
       price: new FormControl('', Validators.required),
       availableTicketNumber: new FormControl('', Validators.required),
       eventType: new FormControl('', Validators.required),
-      location: new FormControl('', Validators.required)
+      location: new FormControl('', Validators.required),
+      tags: new FormControl('', Validators.required),
     });
     this.id = this.activedRouter.snapshot.params.id;
     this.getCurrentEvent(this.id);
@@ -70,18 +75,28 @@ export class UpdateEventComponent implements OnInit {
   }
 
   update(){  
-    this.submited = true;
-    if(this.updateEvent.invalid){
-      return;
-    }
-    else{
-      this.eventService.updateEventService(this.updateEvent, this.id)
+    // this.submited = true;
+    // if(this.updateEvent.invalid){
+    //   return;
+    // }
+    // else{
+      const formData = new FormData();
+        const data = this.updateEvent.value;
+        Object.keys(data).forEach(key => {
+          formData.append(key, data[key]);
+        });
+        if (this.photoUploaded !== null) {
+          formData.append('photo', this.photoUploaded, this.photoUploaded.name);
+        }
+      this.eventService.updateEventService(formData, this.id)
       .subscribe(res => {
         this.toasterService.pop('success', 'Events has been updated', res);
+        this.updateEvent.reset();
+        this.router.navigateByUrl('/events');
       }, err => {
         this.toasterService.pop('error', 'Something goes wrong!', err);        
       })      
-    } 
+     
   }
 
   getCurrentEvent(id){
@@ -91,6 +106,22 @@ export class UpdateEventComponent implements OnInit {
     },
     err => {
       this.toasterService.pop('error', 'Something goes wrong!');
+    })
+  }
+
+  getTags(){
+    this.tagsService.getAlltags().subscribe((res: any[]) => {
+      // console.log(res);    
+      this.tags = res.map((item)=>{
+        const newObject = {
+          label : item.name,
+          value: item._id
+        }; 
+        return newObject;
+      });
+    },
+    err => {
+      this.toasterService.pop('error', 'Error to get tags');
     })
   }
 

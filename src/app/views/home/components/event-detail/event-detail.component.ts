@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ToasterService } from 'angular2-toaster';
-import { EventsService } from '../../../services/events.service';
+import { HomeService } from '../../../../services/home.service';
 
 @Component({
   selector: 'app-event-detail',
@@ -12,17 +11,13 @@ export class EventDetailComponent implements OnInit {
   id;
   result;
 
-  constructor(private eventService: EventsService,
-    private activedRouter : ActivatedRoute,
-    private toaster : ToasterService) { }
+  constructor(private homeService: HomeService,
+    private activedRouter : ActivatedRoute) { }
 
   ngOnInit(): void {
     this.id = this.activedRouter.snapshot.params.id;
-    this.eventService.getCurrentEvent(this.id).subscribe(res =>{
-      this.toaster.pop('success', 'Here we go', res);
-      console.log(res);
-      
-      this.result = res;  
+    this.homeService.getOneEvent(this.id).subscribe(res =>{
+      this.result = res;     
     },
     err =>{
       console.log(err);   
