@@ -17,9 +17,10 @@ import jwt_decode from 'jwt-decode';
 export class UpdateCompanyComponent implements OnInit {
   updateCompany: FormGroup;
   id;
+  submited = false;
   company: [];
-  enablePassword = false;
-  enableRole = false;
+  disablePassword = false;
+  disabledRole = false;
   photoUploaded: File = null;
   photoUrl: any;
   public roleCompany: Array<IOption> = [
@@ -40,41 +41,32 @@ export class UpdateCompanyComponent implements OnInit {
     const role = this.getRoleFromToken(token);
     const currentId = this.getCurrentIdFromToken(token);
     if (role !== null && role == 'superAdmin' && currentId != this.id) {
-      this.enablePassword = true;
+      this.disablePassword = true;
     }
     if (role !== null && role == 'admin'){
-      this.enableRole = true;
+      this.disabledRole = true;
     }
     this.updateCompany = new FormGroup({
       name: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required]),
-      password: new FormControl({ value: '', disabled: this.enablePassword }, Validators.required),
-      role: new FormControl({ value: 'admin', disabled: this.enableRole }, Validators.required)
+      password: new FormControl({ value: '', disabled: this.disablePassword }, Validators.required),
+      role: new FormControl({ value: 'admin', disabled: this.disabledRole }, Validators.required)
+
     });
     const resultat = this.getCurrentCompany(this.id);
   }
 
-  update() {
-    this.companyService.updateCompany(this.id, this.updateCompany.value).subscribe(res => {
-      this.toasterService.pop('Great', 'You have update your profile');
-      this.updateCompany.reset();
-      this.router.navigateByUrl('/companies');
-    }, err => {
-      console.log(err);
-    })
-  }
-
-  onFileSelect(event){
+  onFileSelect(event) {
     if (event.target.files.length == 0) {
-      this.toaster.pop('error', 'Photo Errors', 'Please select an image file')
+      this.toasterService.pop('error', 'Photo Errors', 'Please select an image file')
       return;
     }
     else {
       this.photoUploaded = (event.target as HTMLInputElement).files[0];
       const allowedExtensionFile = ['image/jpg', 'image/jpeg', 'image/png'];
       if (!allowedExtensionFile.includes(this.photoUploaded.type)) {
-        this.toaster.pop('error', 'Photo Errors', 'Only those extension are acceptable! [jpg, jpeg, png]')
+        this.toasterService.pop('error', 'Photo Errors', 'Only those extension are acceptable! [jpg, jpeg, png]')
         return;
       }
       else {
@@ -87,14 +79,38 @@ export class UpdateCompanyComponent implements OnInit {
     }
   }
 
+  update() {
+    this.submited = true
+    if(this.updateCompany.invalid){
+      console.log(this.updateCompany.value);
+      
+      return;
+    }
+    else{
+      const formData = new FormData();
+        const data = this.updateCompany.value;
+        Object.keys(data).forEach(key => {
+          formData.append(key, data[key]);
+        });
+        if (this.photoUploaded !== null) {
+          formData.append('photo', this.photoUploaded, this.photoUploaded.name);
+        }
+      this.companyService.updateCompany(this.id, formData).subscribe(res => {
+      this.toasterService.pop('success', 'You have update your profile');
+      this.updateCompany.reset();
+      this.router.navigateByUrl('/companies');
+      this.submited = false;
+    }, err => {
+      this.toaster.pop('error', err.error.message);
+    })}
+  }
+
   getCurrentCompany(id) {
     this.companyService.getCurrentCompany(id).subscribe(res => {
-      this.updateCompany.patchValue(res);
-      console.log(res);
-      
+      this.updateCompany.patchValue(res);      
     },
       err => {
-        console.log(err);
+        this.toaster.pop('error', err.error.message);
       });
   }
 
