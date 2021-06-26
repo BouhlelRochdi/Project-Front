@@ -44,7 +44,7 @@ export class ReservationComponent implements OnInit {
   }
 
   addReservation() {
-    if(this.getReservations.length <= this.ticketNumber -1){
+    if(this.getReservations.length < this.ticketNumber -1){
       this.getReservations.push(new FormGroup({
         fName: new FormControl('', Validators.required),
         lName: new FormControl('', Validators.required),
