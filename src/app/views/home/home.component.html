@@ -4,16 +4,20 @@
     <div class="card-deck mt-3">
       <div class="card">
         <img *ngIf="event.photo != null && event.photo != undefined && event.photo !=''"
-          [src]="'http://localhost:3000/uploads/Events/' + event.photo" width="50" height="50" />
+          [src]="'http://localhost:3000/uploads/Events/' + event.photo" height="300" />
         <div class="card-body">
           <h5 class="card-title"> {{event.name}} </h5>
           <p class="card-text"> {{event.description}} </p>
+          <small class="text-muted">Company who created this event: <b> {{event.company.name}} </b></small>
         </div>
         <div class="card-footer">
-          <small class="text-muted">Company who created this event: <b> {{event.company.name}} </b></small>
+          <small class="text-muted">Available Tickets: <b> {{event.availableTicketNumber}} </b></small>
+          <div *ngIf='event?.availableTicketNumber <=0' class="invalid-feedback d-block">
+            Can't reserved in this event.
+          </div>
           <div>
-            <button class="btn btn-info my-2 text-white" [routerLink]="['/home/event-detail', event._id]">Show
-              detailes</button>
+            <button class="btn btn-info my-2 text-white" 
+            [routerLink]="['/home/event-detail', event._id]">Show detailes</button>
           </div>
         </div>
       </div>

@@ -20,7 +20,7 @@ export class EventDetailComponent implements OnInit {
       this.result = res;     
     },
     err =>{
-      console.log(err);   
+      console.log(err.error.message);   
     })
   }
   

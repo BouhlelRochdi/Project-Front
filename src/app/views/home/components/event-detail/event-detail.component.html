@@ -12,7 +12,7 @@
           <p class="card-text">end Date:  {{ result?.endDate }} </p>
           <p class="card-text">start Time:  {{ result?.startTime }} </p>
         </div>
-        <div class="card-footer">
+        <div class="card-footer mt-3">
           <strong class="text-muted"> Company: <b> {{ result?.company.name }} </b></strong>
           <div *ngFor="let tag of result?.tags">
             <small class="text-muted badge bg-success"> Tags:  <b>{{ tag?.name }} </b></small>
@@ -20,7 +20,11 @@
         <div>
             <button 
               class="btn btn-info my-2 text-white"
-             [routerLink]="['/home/reservation', result?._id]">Reserver</button>
+             [routerLink]="['/home/reservation', result?._id]" 
+             *ngIf='result?.availableTicketNumber>0' >Reserver</button>
+             <div *ngIf='result?.availableTicketNumber <=0' class="invalid-feedback d-block">
+              Can't reserved in this event.
+             </div>
         </div>
         </div>
       </div>

@@ -23,10 +23,9 @@ export class HomeComponent implements OnInit {
   getEvents(){
     this.homeService.getEvents().subscribe(res =>{
       this.events= res;
-      console.log(this.events);
     },
     err =>{
-      console.log(err);
+      console.log(err.error.message);
     })
   }
 
