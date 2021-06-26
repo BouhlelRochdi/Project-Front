@@ -42,7 +42,6 @@ export class EventsComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.getTags();
     this.eventsForm = new FormGroup({
       name: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
@@ -54,9 +53,10 @@ export class EventsComponent implements OnInit {
       availableTicketNumber: new FormControl('', Validators.required),
       eventType: new FormControl('', Validators.required),
       location: new FormControl('', Validators.required),
-      tags: new FormControl('', Validators.required),
+      tags: new FormControl(''),
 
     });
+    this.getTags();
     this.getAllEvents();
   }
 

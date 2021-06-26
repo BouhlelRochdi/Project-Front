@@ -230,10 +230,14 @@
 
 
                                 <!-- ************ Tags **************** -->
-                                <fieldset class="form-group">
-                                    <ng-select class="bootstrap" placeholder="Choose your tags" [options]="tags"
-                                        [multiple]="true" formControlName="tags"></ng-select>
-                                </fieldset>
+                                <fieldset class="form-group" *ngIf="tags.length">
+                                    <ng-select
+                                    class="bootstrap"
+                                    placeholder="Choose your tags"
+                                    [options]="tags"
+                                    [multiple]="true"
+                                    formControlName="tags"></ng-select>
+                                  </fieldset>
 
 
                                 

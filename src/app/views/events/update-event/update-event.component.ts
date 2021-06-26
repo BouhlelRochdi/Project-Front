@@ -38,17 +38,18 @@ export class UpdateEventComponent implements OnInit {
       name: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       startDate: new FormControl('', [Validators.required]),
-      startTime: new FormControl({hour: 10, minute: 30}, Validators.required),
+      startTime: new FormControl('', Validators.required),
       endDate: new FormControl('', Validators.required),
-      endTime: new FormControl({hour: 10, minute: 30}, Validators.required),
+      endTime: new FormControl('', Validators.required),
       photo: new FormControl('', Validators.required),
       price: new FormControl('', Validators.required),
       availableTicketNumber: new FormControl('', Validators.required),
       eventType: new FormControl('', Validators.required),
       location: new FormControl('', Validators.required),
-      tags: new FormControl('', Validators.required),
+      tags: new FormControl(''),
     });
     this.id = this.activedRouter.snapshot.params.id;
+    this.getTags();
     this.getCurrentEvent(this.id);
   }
 
@@ -111,7 +112,6 @@ export class UpdateEventComponent implements OnInit {
 
   getTags(){
     this.tagsService.getAlltags().subscribe((res: any[]) => {
-      // console.log(res);    
       this.tags = res.map((item)=>{
         const newObject = {
           label : item.name,
