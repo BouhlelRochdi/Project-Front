@@ -17,7 +17,7 @@ const routes: Routes = [
     component: EventDetailComponent
   },
   {
-    path: 'reservation/:id',
+    path: 'reservation/:id/:nbOfTicket',
     component: ReservationComponent
   }];
 

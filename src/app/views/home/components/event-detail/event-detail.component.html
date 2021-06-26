@@ -20,7 +20,7 @@
         <div>
             <button 
               class="btn btn-info my-2 text-white"
-             [routerLink]="['/home/reservation', result?._id]" 
+             [routerLink]="['/home/reservation', result?._id, result?.availableTicketNumber]" 
              *ngIf='result?.availableTicketNumber>0' >Reserver</button>
              <div *ngIf='result?.availableTicketNumber <=0' class="invalid-feedback d-block">
               Can't reserved in this event.
