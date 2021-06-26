@@ -100,9 +100,10 @@ export class CompaniesComponent implements OnInit {
   getAllCompanys() {
     this.companyService.getAllCompanys().subscribe(res => {
       this.companys = res;
-      this.toaster.pop('Got It', 'Here we go!')
     },
-      err => { console.log(err) }
+      err => { 
+        this.toaster.pop('error', 'Something goes wrong', err.error.message)
+       }
     );
   }
 
@@ -110,11 +111,11 @@ export class CompaniesComponent implements OnInit {
     this.sweetAlertService.confirm().then((res) => {
       if (res.isConfirmed) {
         this.companyService.deleteOne(id).subscribe(res => {
-          this.toaster.pop('success', res);
+          this.toaster.pop('success', 'Deleted with Success');
           this.getAllCompanys();
         },
           err => {
-            console.log(err);
+            this.toaster.pop('error', err.error.message);
           });
       }
     });
