@@ -5,7 +5,8 @@ import { DashboardService } from '../../services/dashboard.service';
 import { ToasterService } from 'angular2-toaster';
 
 @Component({
-  templateUrl: 'dashboard.component.html'
+  templateUrl: 'dashboard.component.html',
+  styleUrls: ['./dashboard.css']
 })
 export class DashboardComponent implements OnInit {
   

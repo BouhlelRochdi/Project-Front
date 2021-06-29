@@ -72,7 +72,8 @@ import { SelectModule } from 'ng-select';
     LoginComponent,
     RegisterComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+
   ],
   providers: [
   {
