@@ -10,6 +10,7 @@
                                 <p class="text-muted">Update your account</p>
 
 
+                                <!-- Name -->
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-user"></i></span>
@@ -24,6 +25,8 @@
                                     </div>
                                 </div>
 
+
+                                <!-- Description -->
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-user"></i></span>
@@ -40,6 +43,7 @@
                                 </div>
 
 
+                                <!-- Email -->
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">@</span>
@@ -55,6 +59,7 @@
                                 </div>
 
 
+                                <!-- Password -->
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-lock"></i></span>
@@ -71,33 +76,50 @@
                                 </div>
 
 
+                                <!-- Role 'Select' -->
                                 <div class=" mb-3">
                                     <fieldset class="form-group">
                                         <ng-select formControlName="role" class="bootstrap" [options]="roleCompany"
-                                         id="role">
+                                            id="role">
                                         </ng-select>
                                     </fieldset>
                                 </div>
-                        
 
 
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-sm"><i
-                                        class="far fa-portrait"></i></span>
-                            </div>
-                            <input type="file" class="form-control" placeholder="photo" autocomplete="photo"
-                                formControlName="photo" id="photo">
+
+                                <!-- Photo -->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">@</span>
+                                    </div>
+                                    <input type="file" class="form-control" name="photo" (change)="onFileSelect($event)"
+                                        accept="image/*">
+                                </div>
+                                <div *ngIf="photoUrl" class="my-3 text-center">
+                                    <img [src]="photoUrl" height="10%" width="10%" *ngIf="photoUrl">
+                                </div>
+
+
+                                <!-- Buttons -->
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <button type="button" class="btn btn-block btn-success"
+                                            (click)="update()"><i class="fa fa-save"></i>  Update
+                                            Company</button>
+                                    </div>
+                                    <div class="col-md-3 offset-md-5">
+                                        <div class="input-group">
+                                            <button type="button" class="btn btn-block btn-info text-white"
+                                                routerLink="/companies"><i class="fa fa-arrow-left"></i>  Back</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
                         </div>
-
-
-                        <button type="button" class="btn btn-block btn-success" (click)="update()">Update your
-                            Company</button>
-                        </form>
                     </div>
                 </div>
             </div>
         </div>
-</div>
-</main>
+    </main>
 </div>

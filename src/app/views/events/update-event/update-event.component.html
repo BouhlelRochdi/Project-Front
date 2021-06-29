@@ -10,9 +10,10 @@
                                 <p class="text-muted">Creat Events</p>
 
 
+                                <!-- Name -->
                                 <div class="mb-3">
                                     <label for="name">
-                                        Description
+                                        Name
                                     </label>
                                     <div for="name">
                                         <input type="text" class="form-control" placeholder="Events Name"
@@ -27,7 +28,7 @@
                                 </div>
 
 
-
+                                <!-- Description -->
                                 <div class="mb-3">
                                     <label for="description">
                                         Description
@@ -48,13 +49,13 @@
 
 
 
-
+                                <!-- Start Date -->
                                 <div class="mb-3">
                                     <label for="startDate">
                                         Start Date
                                     </label>
                                     <div for="startDate">
-                                        <input type="datetime-local" class="form-control" placeholder="startDate"
+                                        <input type="date" class="form-control" placeholder="startDate"
                                             autocomplete="startDate" formControlName="startDate" id="startDate"
                                             [ngClass]="{'is-valid': submited && updateEvent.controls.startDate.valid, 'is-invalid': submited && updateEvent.controls.startDate.invalid}">
                                         <div *ngIf="updateEvent.controls.startDate.errors"
@@ -67,6 +68,7 @@
                                 </div>
 
 
+                                <!-- Start Time -->
                                 <div class="mb-3">
                                     <label for="startTime">
                                         Start Time
@@ -90,12 +92,13 @@
                                 </div>
 
 
+                                <!-- End Date -->
                                 <div class="mb-3">
                                     <label for="endDate">
                                         End Date
                                     </label>
                                     <div for="endDate">
-                                        <input type="datetime-local" class="form-control" placeholder="endDate"
+                                        <input type="date" class="form-control" placeholder="endDate"
                                             autocomplete="endDate" formControlName="endDate" id="endDate"
                                             [ngClass]="{'is-valid': submited && updateEvent.controls.endDate.valid, 'is-invalid': submited && updateEvent.controls.endDate.invalid}">
                                         <div *ngIf="updateEvent.controls.endDate.errors"
@@ -108,7 +111,7 @@
                                 </div>
 
 
-
+                                <!-- End Time -->
                                 <div class="mb-3">
                                     <label for="endTime">
                                         End Time
@@ -131,23 +134,20 @@
                                 </div>
 
 
-                                <div class="mb-3">
-                                    <label for="photo">
-                                        Photo
-                                    </label>
-                                    <div for="photo">
-                                        <input type="file" class="form-control" placeholder="photo" autocomplete="photo"
-                                            formControlName="photo" (change)="onFileSelect($event)" id="photo">
-                                            <!-- [ngClass]="{'is-valid': submited && updateEvent.controls.photo.valid, 'is-invalid': submited && updateEvent.controls.photo.invalid}"> -->
-                                        <!-- <div *ngIf="updateEvent.controls.photo.errors" class="invalid-feedback d-block">
-                                            <div *ngIf="updateEvent.controls.photo.errors.required && submited">
-                                                Photo is required ..
-                                            </div>
-                                        </div> -->
+                                <!-- Photo -->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">@</span>
                                     </div>
+                                    <input type="file" class="form-control" name="photo" (change)="onFileSelect($event)"
+                                        accept="image/*">
+                                </div>
+                                <div *ngIf="photoUrl" class="my-3 text-center">
+                                    <img [src]="photoUrl" height="10%" width="10%" *ngIf="photoUrl">
                                 </div>
 
 
+                                <!-- Price -->
                                 <div class="mb-3">
                                     <label for="price">
                                         Price
@@ -165,7 +165,7 @@
                                 </div>
 
 
-
+                                <!-- availableTicketNumber -->
                                 <div class="mb-3">
                                     <label for="availableTicketNumber">
                                         Available Ticket Number
@@ -186,7 +186,7 @@
                                 </div>
 
 
-
+                                <!-- Event Type -->
                                 <div class="mb-3">
                                     <label for="eventType">
                                         Event Type
@@ -210,7 +210,7 @@
                                 </div>
 
 
-
+                                <!-- Location -->
                                 <div class="mb-3">
                                     <label for="location">
                                         Location
@@ -229,8 +229,31 @@
                                 </div>
 
 
-                                <button type="button" class="btn btn-block btn-success" (click)="update()">Update this
-                                    Event</button>
+                                <!-- ************ Tags **************** -->
+                                <fieldset class="form-group" *ngIf="tags.length">
+                                    <ng-select
+                                    class="bootstrap"
+                                    placeholder="Choose your tags"
+                                    [options]="tags"
+                                    [multiple]="true"
+                                    formControlName="tags"></ng-select>
+                                  </fieldset>
+
+
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <button type="button" class="btn btn-block btn-success" (click)="update()"><i
+                                                class="fa fa-save"></i> Update
+                                            Company</button>
+                                    </div>
+                                    <div class="col-md-3 offset-md-5">
+                                        <div class="input-group">
+                                            <button type="button" class="btn btn-block btn-info text-white"
+                                                routerLink="/events"><i class="fa fa-arrow-left"></i> Back</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>

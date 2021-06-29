@@ -1,37 +1,69 @@
-<form [formGroup]="updateTagsForm">
-    <h2 class>
-      <p class="text-muted">Update Tag</p>
-    </h2>
-    <div class="mb-3">
-      <label for="name">
-        Name
-      </label>
-      <div for="name">
-        <input type="text" class="form-control" placeholder="Name" autocomplete="Name" formControlName="name"
-          id="name"
-          [ngClass]="{'is-valid': submited && updateTagsForm.controls.name.valid, 'is-invalid': submited && updateTagsForm.controls.name.invalid}">
-        <div *ngIf="updateTagsForm.controls.name.errors" class="invalid-feedback d-block">
-          <div *ngIf="updateTagsForm.controls.name.errors.required && submited">
-            Name is required ..
-          </div>
-          <div *ngIf="updateTagsForm.controls.name.errors.name && submited">
-            Name Format is required ..
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 mx-auto">
+          <div class="card mx-4">
+            <div class="card-body p-4">
+
+              <form [formGroup]="updateTagsForm">
+                <h2 class>
+                  <p class="text-muted">Update Tag</p>
+                </h2>
+
+                <div class="mb-3">
+                  <label for="name">
+                    Name
+                  </label>
+                  <div for="name">
+                    <input type="text" class="form-control" placeholder="Name" autocomplete="Name"
+                      formControlName="name" id="name"
+                      [ngClass]="{'is-valid': submited && updateTagsForm.controls.name.valid, 'is-invalid': submited && updateTagsForm.controls.name.invalid}">
+                    <div *ngIf="updateTagsForm.controls.name.errors" class="invalid-feedback d-block">
+                      <div *ngIf="updateTagsForm.controls.name.errors.required && submited">
+                        Name is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="description">
+                    Description
+                  </label>
+                  <div for="description">
+                    <textarea name="description" id="description" cols="mx-auto" rows="10" class="form-control"
+                      placeholder="description" autocomplete="current-description" formControlName="description"
+                      id="description"
+                      [ngClass]="{'is-valid': submited && updateTagsForm.controls.description.valid, 'is-invalid': submited && updateTagsForm.controls.description.invalid }"></textarea>
+                  </div>
+                  <div *ngIf="updateTagsForm.controls.description.errors" class="invalid-feedback d-block">
+                    <div *ngIf="updateTagsForm.controls.description.errors.required && submited">
+                      Description is required.
+                    </div>
+                  </div>
+                </div>
+
+
+                <!-- Buttons -->
+                <div class="row mb-3">
+                  <div class="col-md-3">
+                    <button type="button" class="btn btn-block btn-success" (click)="updateTag()"><i class="fa fa-save"></i>  Save Update</button>
+                  </div>
+                  <div class="col-md-3 offset-md-6">
+                    <div class="input-group">
+                      <button type="button" class="btn btn-block btn-info text-white" routerLink="/tags"><i class="fa fa-arrow-left"></i>  Back</button>
+                    </div>
+                  </div>
+                </div>
+
+
+
+              </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="mb-3">
-      <label for="description">
-        Description
-      </label>
-      <div for="description">
-        <textarea name="description" id="description" cols="mx-auto" rows="10" class="form-control"
-          placeholder="description" autocomplete="current-description" formControlName="description"
-          id="description">
-                        </textarea>
-      </div>
-    </div>
-    <div class="row">
-        <button type="button" class="btn btn-primary btn-block" (click)="updateTag()">Save Update</button>
-    </div>
-  </form>
+  </main>
+</div>

@@ -22,6 +22,7 @@ export class CompaniesComponent implements OnInit {
   photoUrl: any;
   token = localStorage.getItem('token');
   currentId: any;
+  currentRole: any;
   @ViewChild('companyModal') companyModal: ModalDirective;
   filterQuery: string = null;
   public roleCompany: Array<IOption> = [
@@ -36,6 +37,7 @@ export class CompaniesComponent implements OnInit {
   ngOnInit(): void {
     const token = localStorage.getItem('token');
     this.currentId = this.getCurrentIdFromToken(token);
+    this.currentRole = this.getRoleFromToken(token);
     this.addCompany = new FormGroup({
       name: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
@@ -60,6 +62,7 @@ export class CompaniesComponent implements OnInit {
         return;
       }
       else {
+        // this part is to review the photo in the form
         const readFile = new FileReader();
         readFile.readAsDataURL(this.photoUploaded);
         readFile.onload = (event) => {
@@ -97,9 +100,10 @@ export class CompaniesComponent implements OnInit {
   getAllCompanys() {
     this.companyService.getAllCompanys().subscribe(res => {
       this.companys = res;
-      this.toaster.pop('Got It', 'Here we go!')
     },
-      err => { console.log(err) }
+      err => { 
+        this.toaster.pop('error', 'Something goes wrong', err.error.message)
+       }
     );
   }
 
@@ -107,11 +111,11 @@ export class CompaniesComponent implements OnInit {
     this.sweetAlertService.confirm().then((res) => {
       if (res.isConfirmed) {
         this.companyService.deleteOne(id).subscribe(res => {
-          this.toaster.pop('success', res);
+          this.toaster.pop('success', 'Deleted with Success');
           this.getAllCompanys();
         },
           err => {
-            console.log(err);
+            this.toaster.pop('error', err.error.message);
           });
       }
     });
@@ -128,6 +132,17 @@ export class CompaniesComponent implements OnInit {
       const tokenInfo : any= jwt_decode(token);
       const currentId = tokenInfo.id;
         return currentId;
+    }
+    catch(Error){
+        return null;
+    }
+  }
+
+  getRoleFromToken (token: string){
+    try{
+      const tokenInfo : any= jwt_decode(token);
+      const currentRole = tokenInfo.role;
+        return currentRole;
     }
     catch(Error){
         return null;

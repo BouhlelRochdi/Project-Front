@@ -1,0 +1,136 @@
+<div class="Reservation justify-content-center">
+    <div class="animated fadeIn">
+        <div class="row d-flex justify-content-center">
+            <div class="col-sm-8">
+                <div class="">
+                    <div class="reservation-card card">
+                        <div class="card-header">
+                            <strong>Reservation</strong>
+                        </div>
+                        <form [formGroup]="reservationForm">
+                            <div class="card-body container">
+                                <label>
+                                    <h2>Contact :</h2>
+                                </label>
+                                <div formGroupName="user">
+                                    <div class="row">
+                                        <div class="col-6 form-group">
+                                            <input type="text" class="form-control" placeholder="First Name"
+                                                formControlName="fName"
+                                                [ngClass]="{'is-valid': submited && userForm?.controls.fName?.valid, 'is-invalid': submited && userForm?.controls.fName?.invalid}">
+                                            <div *ngIf="userForm?.controls.fName?.errors"
+                                                class="invalid-feedback d-block">
+                                                <div *ngIf="userForm?.controls.fName?.errors.required && submited">
+                                                    First name is required ..
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 form-group">
+                                            <input type="text" class="form-control" placeholder="Last Name"
+                                                formControlName="lName"
+                                                [ngClass]="{'is-valid': submited && userForm?.controls.lName?.valid, 'is-invalid': submited && userForm?.controls.lName?.invalid}">
+                                            <div *ngIf="userForm?.controls.lName?.errors"
+                                                class="invalid-feedback d-block">
+                                                <div *ngIf="userForm?.controls.lName?.errors.required && submited">
+                                                    Last name is required ..
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 form-group">
+                                            <input type="email" class="form-control" placeholder="E-mail"
+                                                formControlName="email"
+                                                [ngClass]="{'is-valid': submited && userForm?.controls.email?.valid, 'is-invalid': submited && userForm?.controls.email?.invalid}">
+                                            <div *ngIf="userForm?.controls.email?.errors"
+                                                class="invalid-feedback d-block">
+                                                <div *ngIf="userForm?.controls.email?.errors.required && submited">
+                                                    E-mail is required ..
+                                                </div>
+                                                <div *ngIf="submited && userForm?.controls.email?.errors.email ">
+                                                    Invalid format E-mail.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- New User Reservation -->
+
+                                <div formGroupName="reservations">
+                                    <div class="mt-3">
+                                        <p><b> Add new reservation </b>
+                                            <button (click)="addReservation()" class="btn btn-block btn-info text-white"> Add New
+                                                Reservation</button>
+                                        </p>
+                                    </div>
+                                    <div *ngFor="let newOne of getReservations?.controls; let i= index" class="ml-3">
+                                        <div [formGroupName]="i">
+                                            <div class="row">
+                                                <strong>Reservation N°:  {{i}} </strong>
+                                                <div class="col-6 form-group">
+                                                    <input type="text" class="form-control" placeholder="First Name"
+                                                        formControlName="fName"
+                                                        [ngClass]="{'is-invalid': submitted && getReservations?.controls[i].fName?.invalid, 'is-valid': submitted && getReservations?.controls[i].fName?.valid }">
+                                                    <div class="invalid-feedback d-block"
+                                                        *ngIf="submitted && getReservations?.controls[i].fName?.errors.required">
+                                                        First Name is required.
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 form-group">
+                                                    <input type="text" class="form-control" placeholder="Last Name"
+                                                        formControlName="lName"
+                                                        [ngClass]="{'is-invalid': submitted && getReservations?.controls[i].lName.invalid, 'is-valid': submitted && getReservations?.controls[i].lName.valid }">
+                                                    <div class="invalid-feedback d-block"
+                                                        *ngIf="submitted && getReservations?.controls[i].lName.errors.required">
+                                                        Last Name is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-10 form-group">
+                                                    <input type="email" class="form-control" placeholder="E-mail"
+                                                        formControlName="email"
+                                                        [ngClass]="{'is-invalid': submitted && getReservations?.controls[i].email?.invalid, 'is-valid': submitted && getReservations?.controls[i].email?.valid }">
+                                                    <div class="invalid-feedback d-block"
+                                                        *ngIf="submitted && getReservations?.controls[i].email?.errors.required">
+                                                        E-mail is required.
+                                                    </div>
+                                                </div>
+                                                <div class="col-2">
+                                                    <button class="btn btn-danger" (click)="removeReservation(i)" type="button">
+                                                         <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4" *ngIf= "indexRow">
+                                        <button class="btn btn-danger" (click)="removeAllRow()" type="button">
+                                             Remove All Reservations:  <i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer">
+                            <div class="row container">
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-block btn-info text-white"
+                                    [routerLink]="['/home/event-detail/', id]">
+                                    <i class="fa fa-arrow-left"></i> Cancel</button>
+                                </div>
+                                <div class="col-md-3 offset-md-6">
+                                    <button type="submit" (click)="valider()" class="btn btn-block btn-success">
+                                        <i class="fa fa-check"></i> Valider</button>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

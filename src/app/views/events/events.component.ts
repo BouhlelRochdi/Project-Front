@@ -1,111 +1,174 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormsModule} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IOption } from 'ng-select';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { NgbModal, NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClient } from '@angular/common/http';
-import { DataTableService, TableData } from '../tables/datatable/datatable.service';
 import { EventsService } from '../../services/events.service';
 import { ToasterService } from 'angular2-toaster';
-import { ActivatedRoute, Router } from '@angular/router';
 import { SweetAlertService } from '../../services/sweet-alert.service';
-// import { TableData, DataTableService } from '../tables/datatable/datatable.service';
-// import swal from 'sweetalert';
-
+import { TagsService } from '../../services/tags.service';
 
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
-  providers: [ DataTableService ],
   encapsulation: ViewEncapsulation.None,
-  styleUrls: []
+  styleUrls: ['../../../scss/vendors/bs-datepicker/bs-datepicker.scss',]
 })
 export class EventsComponent implements OnInit {
-  @ViewChild('myModal') public myModal: ModalDirective;
+  @ViewChild('eventModal') public eventModal: ModalDirective;
   eventsForm: FormGroup;
   submited = false;
-  events : [];
-  // timeStart = {hour: 10, minute: 30};
-  // timeEnd = {hour: 17, minute: 15};
-  hoveredDate: NgbDate | null = null;
-  fromDate: NgbDate | null;
-  toDate: NgbDate | null;
+  events: [];
+  filterQuery: string = null;
+  photoUploaded: File = null;
+  photoUrl: any;
 
-
-  public type: Array<IOption> = [
-    {label: 'Free', value: 'free'},
-    {label: 'Paid', value: 'Paid'},
-  ];
+  // ******* Date Picker zone *********
+  minDate1: Date = new Date();
+  minDate2: Date = new Date();
   
+  // Time Picker 
+  public hstep: number = 1;
+  public mstep: number = 15;
+  public ismeridian: boolean = true;
+  public isEnabled: boolean = true;
+  
+  // ******* Ng-select typeEvent
+  public type: Array<IOption> = [
+    { label: 'Free', value: 'free' },
+    { label: 'Paid', value: 'Paid' },
+  ];
 
-  constructor(private modalService: NgbModal, private http: HttpClient,
-     private eventService: EventsService,
-     private toasterService: ToasterService,
-     private sweetAlertService : SweetAlertService) {
-   }
+  // ******* ng-select Tags
+  public tags: Array<IOption> = [];
+
+
+  constructor(private eventService: EventsService,
+    private toasterService: ToasterService,
+    private sweetAlertService: SweetAlertService,
+    private tagsService: TagsService) {
+
+    // Date Rang
+    
+    //************ End Date Rang */
+  }
 
   ngOnInit(): void {
     this.eventsForm = new FormGroup({
       name: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
-      startDate: new FormControl('2021-06-12T10:30', [Validators.required]),
-      startTime: new FormControl('09:30', Validators.required),
-      endDate: new FormControl('2021-06-16T17:30', Validators.required),
-      endTime: new FormControl('17:30', Validators.required),
-      photo: new FormControl('', Validators.required),
+      startDate: new FormControl(new Date(), [Validators.required]),
+      startTime: new FormControl(new Date(), Validators.required),
+      endDate: new FormControl(new Date(), Validators.required),
+      endTime: new FormControl(new Date(), Validators.required),
       price: new FormControl('', Validators.required),
       availableTicketNumber: new FormControl('', Validators.required),
       eventType: new FormControl('', Validators.required),
-      location: new FormControl('', Validators.required)
+      location: new FormControl('', Validators.required),
+      tags: new FormControl('')
     });
+    this.getTags();
     this.getAllEvents();
+    this.eventsForm.controls.startDate.valueChanges.subscribe(newStartDate =>{
+      this.minDate2 = newStartDate;
+    })
   }
 
   AddEvent() {
     this.submited = true;
-    if(this.eventsForm.invalid){
-      return;
-    }
-    else{
-      this.eventService.AddEvent(this.eventsForm.value)
-      .subscribe(res => {
-        this.toasterService.pop('success', 'Events has been Add', res);
-        this.eventsForm.reset();
-        this.myModal.hide();
-        this.getAllEvents();
-      }, err => {
-        this.toasterService.pop('error', 'There is something went wrong verify this error', err);
-      })      
+    try {
+      // if(this.eventsForm.invalid){
+      //   console.log(this.eventsForm.invalid);
+      //   return;
+      // }
+      // else{
+      const formData = new FormData();
+      const data = this.eventsForm.value;
+      Object.keys(data).forEach(key => {
+        formData.append(key, data[key]);
+      });
+      if (this.photoUploaded !== null) {
+        formData.append('photo', this.photoUploaded, this.photoUploaded.name);
+      }
+      this.eventService.AddEvent(formData)
+        .subscribe(res => {
+          this.toasterService.pop('success', 'Events has been Add', res);
+          this.eventsForm.reset();
+          this.eventModal.hide();
+          this.getAllEvents();
+        }, err => {
+          this.toasterService.pop('error', 'There is something went wrong verify this error', err);
+        })
+
+    } catch (err) {
+      console.log(err);
+
     }
   }
 
-  getAllEvents (){
-    this.eventService.getAllEvents().subscribe(res =>{
+  getAllEvents() {
+    this.eventService.getAllEvents().subscribe(res => {
       this.events = res;
     },
-    err => {
-      this.toasterService.pop('error', 'There is something went wrong verify this error', err);
-    }
+      err => {
+        this.toasterService.pop('error', 'There is something went wrong verify this error', err);
+      }
     );
   }
 
-
-  openLg(content) {
-    this.modalService.open(content, { size: 'lg', centered: true, scrollable : true });
+  openLg() {
+    this.eventModal.show();
   }
 
-  deleteEvent(id){
+  deleteEvent(id) {
     this.sweetAlertService.confirm().then((res) => {
       if (res.isConfirmed) {
         this.eventService.deleteEvent(id)
-        .subscribe( res => {
-          this.toasterService.pop('success', 'This Event was deleted');
-          this.getAllEvents();
-        },
-        err =>{
-          this.toasterService.pop('error', 'Something went wrong!', err)
-        })
+          .subscribe(res => {
+            this.toasterService.pop('success', 'This Event was deleted');
+            this.getAllEvents();
+          },
+            err => {
+              this.toasterService.pop('error', 'Something went wrong!', err)
+            })
       }
-  })
+    })
   }
+
+  onFileSelect(event) {
+    if (event.target.files.length == 0) {
+      this.toasterService.pop('error', 'Photo Errors', 'Please select an image file')
+      return;
+    }
+    else {
+      this.photoUploaded = (event.target as HTMLInputElement).files[0];
+      const allowedExtensionFile = ['image/jpg', 'image/jpeg', 'image/png'];
+      if (!allowedExtensionFile.includes(this.photoUploaded.type)) {
+        this.toasterService.pop('error', 'Photo Errors', 'Only those extension are acceptable! [jpg, jpeg, png]')
+        return;
+      }
+      else {
+        const readFile = new FileReader();
+        readFile.readAsDataURL(this.photoUploaded);
+        readFile.onload = (event) => {
+          this.photoUrl = readFile.result;
+        }
+      }
+    }
   }
+  // ************************************
+  getTags() {
+    this.tagsService.getAlltags().subscribe((res: any[]) => {
+      this.tags = res.map((item) => {
+        const newObject = {
+          label: item.name,
+          value: item._id
+        };
+        return newObject;
+      });
+    },
+      err => {
+        this.toasterService.pop('error', 'Error to get tags');
+      })
+  }
+  // ************************************
+}

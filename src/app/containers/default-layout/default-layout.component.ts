@@ -1,9 +1,7 @@
 import { Component, OnDestroy, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { navItems } from '../../_nav';
-import { routes } from '../../app-routing.module';
 import { Router } from '@angular/router';
-import { CompanyService } from '../../services/company.service';
 import { ToasterService } from 'angular2-toaster';
 
 

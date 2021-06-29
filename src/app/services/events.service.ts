@@ -10,7 +10,6 @@ export class EventsService {
   constructor(private httpClient : HttpClient) { }
 
   getAllEvents(): Observable <any>{
-    console.log('all Events');
     return this.httpClient.get('http://localhost:3000/api/events');
   }
   AddEvent(data): Observable <any>{
@@ -27,4 +26,9 @@ export class EventsService {
   getCurrentEvent(id): Observable <any>{
     return this.httpClient.get(`http://localhost:3000/api/events/${id}`);
   }
+
+  getAllTags(): Observable <any>{
+    return this.httpClient.get('http://localhost:3000/api/tags');
+  }
+
 }

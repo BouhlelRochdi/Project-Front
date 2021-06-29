@@ -5,30 +5,33 @@ import { EventsRoutingModule } from './events-routing.module';
 import { EventsComponent } from './events.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'ng-select';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateEventComponent } from './update-event/update-event.component';
-// import { DataTableComponent } from '../tables/datatable/datatable.component';
-// import { DataFilterPipe } from '../tables/datatable/datafilterpipe';
-
+import { SearchPipe } from './pipes/search.pipe';
+import { DataTableModule } from 'angular2-datatable';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
 @NgModule({
   declarations: [
     EventsComponent,
     UpdateEventComponent,
-    // DataTableComponent,
-    // DataFilterPipe
+    SearchPipe,
   ],
   imports: [
     CommonModule,
     EventsRoutingModule,
     ReactiveFormsModule,
     SelectModule,
-    // DatatableRoutingModule,
     CommonModule,
-    // DataTableModule,
+    DataTableModule,
     FormsModule,
-    NgbModule
-    // HttpClientModule
+    NgbModule,
+    ModalModule.forRoot(),
+    BsDatepickerModule,
+    BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot()
   ]
 })
 export class EventsModule { }

@@ -7,35 +7,39 @@
         <div class="card-body">
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" (click)="companyModal.show()">
+                    <button type="button" *ngIf="currentRole == 'superAdmin'" class="btn btn-primary"
+                        data-toggle="modal" (click)="companyModal.show()">
                         <i class="fa fa-plus"></i> Add Company
                     </button>
+
                 </div>
-                <div class="col-md-4 offset-md-4"> 
+                <div class="col-md-4 offset-md-4">
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-search"></i></span>
                         </div>
-                        <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search ..."/>
+                        <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search ..." />
                     </div>
                 </div>
             </div>
             <div style="overflow-x: auto">
                 <!-- Table -->
-                <table [mfData]="companys | search : filterQuery"  #mf="mfDataTable" [mfRowsOnPage]="10" 
-                class="table table-striped table-hover table-responsive-lg display nowrap">
-                <!-- datatable [dtOptions]="dtOptions" -->
+                <table [mfData]="companys | search : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10"
+                    class="table table-striped table-hover table-responsive-lg display nowrap">
+                    <!-- datatable [dtOptions]="dtOptions" -->
                     <thead>
                         <tr>
                             <th>
                                 <mfDefaultSorter by="name">Name</mfDefaultSorter>
                             </th>
                             <th>
-                                <mfDefaultSorter by="description">Description</mfDefaultSorter>    
+                                <mfDefaultSorter by="description">Description</mfDefaultSorter>
                             </th>
                             <th>
                                 <mfDefaultSorter by="email">E-mail</mfDefaultSorter>
                             </th>
+
+                            <th>Photo</th>
                             <th>
                                 <mfDefaultSorter by="role">Role</mfDefaultSorter>
                             </th>
@@ -47,6 +51,11 @@
                             <td>{{ company.name }}</td>
                             <td>{{ company.description }}</td>
                             <td>{{ company.email }}</td>
+                            <td>
+                                <img *ngIf="company.photo != null && company.photo != undefined && company.photo !=''"
+                                    [src]="'http://localhost:3000/uploads/Companys/' + company.photo" width="30"
+                                    height="30" />
+                            </td>
                             <td>{{ company.role }}</td>
                             <td class="text-center">
                                 <button class="btn btn-success btn-sm"
@@ -54,7 +63,8 @@
                                     <i class="fa fa-edit"></i> Update
                                 </button>
                                 <!-- [routerLink]="['/companys/update', company._id]"></button> -->
-                                <button *ngIf="company._id != currentId" class="btn btn-danger btn-sm" (click)="deletecompany(company._id)">
+                                <button *ngIf="company._id != currentId" class="btn btn-danger btn-sm"
+                                    (click)="deletecompany(company._id)">
                                     <i class="fa fa-trash"></i> Delete
                                 </button>
                             </td>
@@ -62,11 +72,11 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                          <td colspan="5">
-                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
-                          </td>
+                            <td colspan="5">
+                                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                            </td>
                         </tr>
-                      </tfoot>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -78,16 +88,14 @@
             <div class="modal-dialog modal-primary" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Please Fill in this form To Add a Company</h4>
+                        <h4 class="modal-title">Create a Company</h4>
                         <button type="button" class="close" (click)="companyModal.hide()" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
 
-                        <form [formGroup]="addCompany">
-                            <h1>Companies</h1>
-                            <p class="text-muted">Create your account</p>
+                    <form [formGroup]="addCompany">
+                        <div class="modal-body">
 
                             <!-- Name -->
                             <div class="input-group mb-3">
@@ -144,7 +152,7 @@
                                     accept="image/*">
                             </div>
                             <div *ngIf="photoUrl" class="my-3 text-center">
-                                <img [src]="photoUrl" height="100" width="100" *ngIf="photoUrl">
+                                <img [src]="photoUrl" height="10%" width="10%" *ngIf="photoUrl">
                             </div>
 
 
@@ -168,22 +176,21 @@
                             <div class=" mb-3">
                                 <fieldset class="form-group">
                                     <ng-select formControlName="role" class="bootstrap" [options]="roleCompany"
-                                     id="role">
+                                        id="role">
                                     </ng-select>
                                 </fieldset>
                             </div>
 
+                        </div>
+                        <div class="modal-footer">
 
-
-                            <button type="button" class="btn btn-block btn-success" (click)="sendCompany()">Create
-                                A Company</button>
-                        </form>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-block"
-                            (click)="companyModal.hide()">Close</button>
-                    </div>
+                            <button type="button" class="btn btn-block btn-success" (click)="sendCompany()">
+                                <i class="fa fa-save"></i> Create A Company
+                            </button>
+                            <button type="button" class="btn btn-secondary btn-block text-white"
+                                (click)="companyModal.hide()"> <i class="fa fa-close"></i> Cancel</button>
+                        </div>
+                    </form>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
