@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
 
-      
+
       <div class="modal-header">
         <h4 class="modal-title">Add a tag</h4>
         <button type="button" class="close" (click)="companyModal.hide()" aria-label="Close">
@@ -13,10 +13,10 @@
 
 
       <form [formGroup]="eventsForm">
-      <div class="modal-body">
+        <div class="modal-body">
 
-        <!-- content body  (contain eventsForm)-->
-        
+          <!-- content body  (contain eventsForm)-->
+
           <h3 class="text-muted">Create new event</h3>
 
 
@@ -60,40 +60,40 @@
 
           <!-- Start Date -->
           <div class="mb-3">
-            <label for="startDate">
-              Start Date
-            </label>
-            <div for="startDate">
+            <div class="animated fadeIn">
+              <label for="startDate">
+                Start Date
+              </label>
+              <input type="text" class="form-control" bsDatepicker formControlName="startDate" [minDate]="minDate1">
+              <div class="invalid-feedback d-block">
+                <div *ngIf="submitted && eventsForm.controls.startDate.hasError('required')">
+                  Start date is required.</div>
+              </div>
+            </div>
+            <!-- <div for="startDate">
               <input type="date" class="form-control" placeholder="startDate" autocomplete="startDate"
-                formControlName="startDate" id="startDate"
+                formControlName="startDate" 
+                #datepickerYMD="bsDatepicker"
+                bsDatepicker 
                 [ngClass]="{'is-valid': submited && eventsForm.controls.startDate.valid, 'is-invalid': submited && eventsForm.controls.startDate.invalid}">
               <div *ngIf="eventsForm.controls.startDate.errors" class="invalid-feedback d-block">
                 <div *ngIf="eventsForm.controls.startDate.errors.required && submited">
                   Start Date is required ..
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
 
 
           <!-- Start Time -->
           <div class="mb-3">
-            <label for="startTime">
-              Start Time
-            </label>
-            <div for="startTime">
-
-              <!-- <ngb-timepicker formControlName="startTime"
-                          id="startTime"
-                          [ngClass]="{'is-valid': submited && eventsForm.controls.startTime.valid, 'is-invalid': submited && eventsForm.controls.startTime.invalid}">
-                        </ngb-timepicker> -->
-
-              <input type="time" formControlName="startTime" id="startTime"
-                [ngClass]="{'is-valid': submited && eventsForm.controls.startTime.valid, 'is-invalid': submited && eventsForm.controls.startTime.invalid}">
-              <div *ngIf="eventsForm.controls.startTime.errors" class="invalid-feedback d-block">
-                <div *ngIf="eventsForm.controls.startTime.errors.required && submited">
-                  Start Time is required ..
-                </div>
+            <div class="animated fadeIn">
+              <label for="startTime">Start Time :</label>
+              <timepicker [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian"
+                [readonlyInput]="!isEnabled" formControlName="startTime"></timepicker>
+              <div class="invalid-feedback d-block">
+                <div *ngIf="submitted && eventsForm.controls.startTime.hasError('required')">
+                  Start time is required.</div>
               </div>
             </div>
           </div>
@@ -101,17 +101,14 @@
 
           <!-- End Date -->
           <div class="mb-3">
-            <label for="endDate">
-              End Date
-            </label>
-            <div for="endDate">
-              <input type="date" class="form-control" autocomplete="endDate" formControlName="endDate"
-                id="endDate"
-                [ngClass]="{'is-valid': submited && eventsForm.controls.endDate.valid, 'is-invalid': submited && eventsForm.controls.endDate.invalid}">
-              <div *ngIf="eventsForm.controls.endDate.errors" class="invalid-feedback d-block">
-                <div *ngIf="eventsForm.controls.endDate.errors.required && submited">
-                  End Date is required ..
-                </div>
+            <div class="animated fadeIn">
+              <label for="endDate">
+                End Date
+              </label>
+              <input type="text" class="form-control" bsDatepicker formControlName="endDate" [minDate]="minDate2">
+              <div class="invalid-feedback d-block">
+                <div *ngIf="submitted && eventsForm.controls.endDate.hasError('required')">
+                  End date is required.</div>
               </div>
             </div>
           </div>
@@ -119,21 +116,13 @@
 
           <!-- End Time -->
           <div class="mb-3">
-            <label for="endTime">
-              End Time
-            </label>
-            <div for="endTime">
-              <!-- <ngb-timepicker formControlName="endTime"
-                          id="endTime"
-                          [ngClass]="{'is-valid': submited && eventsForm.controls.endTime.valid, 'is-invalid': submited && eventsForm.controls.endTime.invalid}">
-                        </ngb-timepicker> -->
-              <input type="time" formControlName="endTime" id="endTime"
-                [ngClass]="{'is-valid': submited && eventsForm.controls.endTime.valid, 'is-invalid': submited && eventsForm.controls.endTime.invalid}">
-
-              <div *ngIf="eventsForm.controls.endTime.errors" class="invalid-feedback d-block">
-                <div *ngIf="eventsForm.controls.endTime.errors.required && submited">
-                  End Time is required ..
-                </div>
+            <div class="animated fadeIn">
+              <label for="endTime">End Time :</label>
+              <timepicker [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian"
+                [readonlyInput]="!isEnabled" formControlName="endTime"></timepicker>
+              <div class="invalid-feedback d-block">
+                <div *ngIf="submitted && eventsForm.controls.endTime.hasError('required')">
+                  Start time is required.</div>
               </div>
             </div>
           </div>
@@ -226,26 +215,22 @@
           </div>
 
           <!-- ************ Tags **************** -->
-              <fieldset class="form-group">
-                <ng-select
-                class="bootstrap"
-                placeholder="Choose your tags"
-                [options]="tags"
-                [multiple]="true"
-                formControlName="tags"></ng-select>
-              </fieldset>
+          <fieldset class="form-group" *ngIf="tags.length">
+            <ng-select class="bootstrap" placeholder="Choose your tags" [options]="tags" [multiple]="true"
+              formControlName="tags"></ng-select>
+          </fieldset>
 
           <!-- ************* End Tags ********************** -->
-      </div>
+        </div>
 
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-block btn-success" (click)="AddEvent()">
-          <i class="fa fa-save"></i> Create An Events</button>
-        <button type="button" class="btn btn-secondary btn-block text-white" (click)="eventModal.hide()">
-          <i class="fa fa-close"></i> Close</button>
-      </div>
-    </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-block btn-success" (click)="AddEvent()">
+            <i class="fa fa-save"></i> Create An Events</button>
+          <button type="button" class="btn btn-secondary btn-block text-white" (click)="eventModal.hide()">
+            <i class="fa fa-close"></i> Close</button>
+        </div>
+      </form>
 
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -304,9 +289,8 @@
               <td>{{ event.name }}</td>
               <td class="text-center">
                 <!-- we have to create url photo to can display it and at the end we add event.photo -->
-                <img *ngIf="event.photo != null && event.photo != undefined && event.photo !=''" 
-                [src]="'http://localhost:3000/uploads/Events/' + event.photo"
-                width="30" height="30"/>
+                <img *ngIf="event.photo != null && event.photo != undefined && event.photo !=''"
+                  [src]="'http://localhost:3000/uploads/Events/' + event.photo" width="30" height="30" />
               </td>
               <td class="text-center">{{ event.availableTicketNumber }}</td>
               <td>{{ event.eventType }}</td>

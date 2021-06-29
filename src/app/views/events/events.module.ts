@@ -10,6 +10,8 @@ import { UpdateEventComponent } from './update-event/update-event.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { DataTableModule } from 'angular2-datatable';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     DataTableModule,
     FormsModule,
     NgbModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    BsDatepickerModule,
+    BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot()
   ]
 })
 export class EventsModule { }
